@@ -1,0 +1,46 @@
+﻿.groupMonitor {
+    padding-left: 10px;
+}
+.groupMonitor .scdl h3 {
+    display: inline-block;
+    margin: 0;
+    padding-left: 5px;
+    cursor: pointer;
+}
+
+.groupMonitor-btn {
+    position: absolute;
+    width: 79px;
+    height: 79px;
+    right: 0;
+    top: 0;
+    background-color: black;
+    cursor: pointer;
+}
+
+.groupMonitor-wrapper {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 600px;
+    height: 100%;
+    z-index: 2;
+    background-color: white;
+    opacity: 0.8;
+    transition: right .2s ease-out;
+    right: -700px;
+}
+.groupMonitor-wrapper.show {
+    right: 0;
+}
+
+.groupMonitor-wrapper header {
+    padding-left: 10px;
+
+    transition: all 1s linear;
+}
+.groupMonitor-wrapper header h1 {
+    margin: 0;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}

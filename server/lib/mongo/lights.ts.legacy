@@ -1,0 +1,105 @@
+﻿import express = require('express');
+import connect = require('./connect');
+import mongodb = require('mongodb');
+
+var db: mongodb.Db;
+var lights: mongodb.Collection;
+var ObjectID = mongodb.ObjectID;
+
+// For jasmine test
+export var isConnected: boolean = false;
+export var done: Function = null;              // jasmine function for asynchronous test
+
+connect('lights', (_db: mongodb.Db) => {
+    db = _db;
+    
+    db.collection('lights', (err: Error, collection: mongodb.Collection) => {
+        isConnected = true;
+        lights = collection;
+
+        if (done != null)
+            done();
+    });
+});
+
+
+export class Light {
+    _id: string;
+    name: string;
+    lat: number;
+    lng: number;
+    groupID: string;
+}
+
+export function create(light: Light, callback?: (result: Light) => void): Light {
+    var _result = new Light();
+
+    lights.insert(light, { w: 1 }, (err: Error, result: Light[]) => {
+        if (err) { console.dir(err); }
+
+        var light = result.pop();
+        var keys = Object.keys(light);
+        for (var i = 0; i < keys.length; i++) {
+            _result[keys[i]] = light[keys[i]];
+        }
+
+        if (callback != undefined)
+            callback(light);
+    })
+
+    return _result;
+}
+
+export function findAll(callback?: (items?: Light[]) => void): Light[]{
+    var _items = new Array();
+
+    lights.find().toArray((err: Error, items: Light[]) => {
+        if (err) { console.dir(err); }
+        _items.push(items);
+
+        if (callback != undefined)
+            callback(items);
+    });
+
+    return _items;
+}
+
+export function findByID(lightID: string, callback?: (item: Light) => void): Light {
+    var _item = new Light();
+
+    lights.findOne({ _id: new ObjectID(lightID) }, (err: Error, item: Light) => {
+        if (err) { console.dir(err); }
+
+        var keys = Object.keys(item);
+        for (var i = 0; i < keys.length; i++) {
+            _item[keys[i]] = item[keys[i]];
+        }
+
+        if (callback != undefined)
+            callback(_item);
+    });
+
+    return _item;
+}
+
+export function update(lightID: string, values: any, callback?: (result: number) => void): void {
+    lights.update({ _id: new ObjectID(lightID) }, { $set: values }, (err, result) => {
+        if (err) { console.dir(err); }
+
+        if (callback != undefined)
+            callback(result);
+    });
+}
+
+export function remove(lightID: string, callback?: (numberOfRemovedDocs: number) => void): void {
+    lights.remove({ _id: new ObjectID(lightID) }, { w: 1 }, (err: Error, numberOfRemovedDocs: number) => {
+        if (err) { console.dir(err); }
+
+        if (callback != undefined)
+            callback(numberOfRemovedDocs);
+    });
+}
+
+export function getLightsColl(): mongodb.Collection {
+    return lights;
+}

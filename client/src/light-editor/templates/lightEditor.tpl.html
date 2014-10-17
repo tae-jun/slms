@@ -1,0 +1,19 @@
+﻿<div class="lightEditor-wrapper" ng-controller="lightEditorCtrl" ng-class="{show: show}">
+    <div class="btn-close" ng-click="btnClose()"></div>
+    <header>
+        <h1>{{light.name || '이름을 입력해주세요'}}</h1>
+    </header>
+    <div class="lightEditor">
+        <label>이름</label>
+        <input type="text" ng-model="light.name" placeholder="이름" />
+        <label>위도</label>
+        <input type="text" ng-model="light.lat" placeholder="위도" />
+        <label>경도</label>
+        <input type="text" ng-model="light.lng" placeholder="경도" />
+        <label>그룹</label>
+        <select ng-model="light.gid">
+            <option ng-repeat="group in groups" value="{{group._id}}" ng-selected="group._id == light.gid">{{group.name}}</option>
+        </select>
+        <button ng-click="confirm()">확인</button>
+    </div>
+</div>

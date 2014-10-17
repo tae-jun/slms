@@ -1,0 +1,110 @@
+﻿/// <reference path="../../../typings/angularjs/angular.d.ts" />
+/// <reference path="../../config.ts" />
+
+module global {
+    import config = configuration.global;
+
+    export function groupService(lightService: ILightService, $http: ng.IHttpService): GroupService {
+        var groups: Group[] = [];
+        var idGroups = {};
+
+        var lastUpdate: Date = new Date(2000);
+        var isFetching: boolean = false;
+        var callbacks: Function[] = new Array();
+
+        var rtnFuncs: GroupService = {
+            get: () => {
+                return groups;
+            },
+            fetch: (callback?) => {
+                if (new Date().getTime() - lastUpdate.getTime() < 500) {
+                    if (callback)
+                        callback(groups);
+                }
+                else {
+                    if (callback) {
+                        callbacks.push(callback);
+                    }
+
+                    if (!isFetching) {
+                        isFetching = true;
+
+                        $http.get(config.groupsUrl)
+                            .success((data: any[]) => {
+                                groups.splice(0, groups.length);
+
+                                data.forEach((v) => {
+                                    var tmp = new Group(v, $http);
+                                    groups.push(tmp);
+                                    idGroups[tmp._id] = tmp;
+                                });
+
+                                // 그룹이 없는 가로등 그룹
+                                var groupNull = new Group({ _id: 'groupNull', name: '그룹이 없는 가로등' }, $http);
+                                groups.push(groupNull);
+                                idGroups[groupNull._id] = groupNull;
+
+                                lightService.fetch((lights) => {
+                                    lights.forEach((value) => {
+                                        if (value.gid)
+                                            idGroups[value.gid].lights.push(value);
+                                        else
+                                            idGroups['groupNull'].lights.push(value);
+                                    });
+                                });
+
+                                while (callbacks.length) {
+                                    callbacks.pop()(groups);
+                                }
+
+                                lastUpdate = new Date();
+                                isFetching = false;
+
+                                console.log('groups fetched at ' + lastUpdate);
+                            })
+                            .error(() => {
+                                console.warn('http get error');
+                                isFetching = false;
+                            });
+                    }
+                }
+
+                return groups;
+            },
+            find: (_id) => {
+                return idGroups[_id];
+            },
+            create: (data, callback) => {
+                $http.post(config.groupsUrl, data)
+                    .success((res) => {
+                        if (callback)
+                            callback(res);
+                    });
+            },
+            control: (_id, rgb, callback) => {
+                var data = {
+                    _id: _id,
+                    rgb: rgb
+                };
+                
+                $http.post(config.groupCtrlUrl, data)
+                    .success((res) => {
+                        if (callback)
+                            callback(res);
+                    });
+            }
+        };
+
+        return rtnFuncs;
+    }
+
+    export interface GroupService {
+        get(): Group[];
+        find(_id: string): Group;
+        fetch(callback?: (groups: Group[]) => void): Group[];
+        create(data: Object, callback?: (res: any) => void);
+        control(_id: string, rgb: number[], callback?: (res: any) => void);
+    }
+
+    
+}

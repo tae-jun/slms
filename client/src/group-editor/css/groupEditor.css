@@ -1,0 +1,43 @@
+﻿.groupEditor {
+    padding-left: 10px;
+}
+
+.groupEditor-btn {
+    position: absolute;
+    width: 79px;
+    height: 79px;
+    right: 0;
+    top: 0;
+    background-color: cornflowerblue;
+    cursor: pointer;
+}
+
+.groupEditor-wrapper {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 700px;
+    height: 100%;
+    z-index: 2;
+    background-color: white;
+    transition: right .2s ease-out;
+    right: -700px;
+}
+.groupEditor-wrapper.show {
+    right: 0;
+}
+
+.groupEditor-wrapper header {
+    background-color: darkviolet;
+    padding-left: 10px;
+}
+.groupEditor-wrapper header h1 {
+    margin: 0;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.groupEditor-wrapper footer {
+    position: absolute;
+    bottom: 0;
+}

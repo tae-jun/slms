@@ -1,0 +1,50 @@
+﻿.lightMonitor-wrapper {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 600px;
+    height: 100%;
+    z-index: 2;
+    background-color: white;
+    opacity: 0.8;
+    transition: all .2s ease-out;
+    right: -700px;
+}
+.lightMonitor-wrapper.show {
+    right: 0;
+}
+.lightMonitor-wrapper header {
+    color: white;
+    padding: 20px;
+
+    transition: all 1s linear;
+}
+.lightMonitor-wrapper header h1 {
+    margin: 0;
+}
+.lightMonitor-wrapper .lightMonitor-button {
+    position: absolute;
+    width: 79px;
+    height: 79px;
+    right: 0;
+    top: 0;
+    background-color: black;
+    cursor: pointer;
+}
+
+.lightMonitor {
+    height: 100%;
+    padding-left: 20px;
+}
+.lightMonitor .groupName {
+    cursor: pointer;
+}
+.lightMonitor .groupName:hover {
+    background-color: ButtonHighlight;
+}
+.lightMonitor footer {
+    position: absolute;
+    bottom: 0;
+    padding-bottom: 10px;
+}
+

@@ -1,0 +1,79 @@
+﻿.sideBar-wrapper {
+    position: fixed;
+    width: 350px;
+    height: 100%;
+    z-index: 2;
+    transition: transform .2s ease-out;
+    transform: translate(-350px, 0);
+    padding-bottom: 20px;
+    background-color: white;
+    opacity: 0.8;
+}
+.sideBar-wrapper.show {
+    transform: translate(0px, 0);
+}
+.sideBar-wrapper header {
+    position: absolute;
+    top: 0;
+    z-index: 3;
+    padding-left: 20px;
+    color: white;
+    width: 100%;
+
+    transition: background-color 3s linear;
+}
+
+.sideBar-button {
+    background-color: black;
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    left: 350px;
+    z-index: 2;
+    cursor: pointer;
+}
+
+.sideBar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 350px;
+    font-family: NanumGothic;
+    padding-top: 69px;
+}
+.sideBar .group {
+    font-size: x-large;
+    cursor: pointer;
+}
+.sideBar .group .name {
+    transition-property: background-color;
+    transition-duration: 0.5s;
+    transition-timing-function: linear;
+}
+.sideBar .group .name:hover {
+    background-color: white;
+}
+.sideBar .light {
+    font-size: medium;
+}
+.sideBar .light:hover {
+    background-color: white;
+}
+.sideBar .newLight {
+    background-color: black;
+    color: white;
+    cursor: pointer;
+}
+.sideBar .newLight h2 {
+    margin: 0;
+    padding: 10px;
+}
+.sideBar .newGroup {
+    background-color: black;
+    color: white;
+    cursor: pointer;
+}
+.sideBar .newGroup h2 {
+    margin: 0;
+    padding: 10px;
+}

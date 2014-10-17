@@ -1,0 +1,16 @@
+﻿.sideBarContainer{
+    background-color:darkorange;
+    position: fixed;
+    height: 100%;
+    width: 300px;
+    z-index: 1;
+    padding: 20px;
+}
+.sideBar-btn{
+    position: absolute;
+    height: 80px;
+    width: 80px;
+    right: -80px;
+    top: 0;
+    background-color:cornflowerblue;
+}

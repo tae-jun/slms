@@ -1,0 +1,23 @@
+﻿<div class="groupMonitor-wrapper" ng-controller="groupMonitorCtrl" ng-class="{show: show}">
+    <div class="groupMonitor-btn" ng-click="show=false"></div>
+    <header ng-style="header">
+        <h1>{{name}}</h1>
+    </header>
+    <div class="groupMonitor">
+        <h3>등록된 가로등 ({{lights.length || 0}})</h3>
+        <div ng-repeat="light in lights">
+            {{light.name}}
+        </div>
+
+        <hr />
+
+        <div class="scdl" ng-click="sClick(scheduler._id)">
+            <i class="fa fa-clock-o fa-2x"></i><h3>{{scheduler.name}}</h3>
+        </div>
+
+        <hr />
+
+        <input color="newRgb" type="text" />
+        <button class="btn btn-default" ng-click="control()">control</button>
+    </div>
+</div>

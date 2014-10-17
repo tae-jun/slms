@@ -1,0 +1,27 @@
+﻿.selection-wrapper {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 350px;
+    height: 100%;
+    z-index: 2;
+    background-color: darkorange;
+    transition: all .2s ease-out;
+    right: -700px;
+}
+.selection-wrapper.show {
+    right: 0;
+}
+.selection-wrapper .span-remove {
+    float: right;
+}
+.selection-wrapper footer {
+    position: absolute;
+    bottom: 0;
+}
+
+.selection {
+    overflow-y: auto;
+    max-height: 100%;
+    padding-bottom: 50px;
+}

@@ -1,0 +1,42 @@
+﻿.lightEditor {
+    padding-left: 10px;
+}
+
+.lightEditor input, select {
+    display: block;
+}
+
+.lightEditor-wrapper {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 700px;
+    height: 100%;
+    z-index: 2;
+    background-color: white;
+    transition: right .2s ease-out;
+    right: -700px;
+}
+.lightEditor-wrapper.show {
+    right: 0;
+}
+
+.lightEditor-wrapper header {
+    background-color: darkviolet;
+    padding-left: 10px;
+}
+.lightEditor-wrapper header h1 {
+    margin: 0;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.lightEditor-wrapper .btn-close {
+    position: absolute;
+    width: 79px;
+    height: 79px;
+    right: 0;
+    top: 0;
+    background-color: cornflowerblue;
+    cursor: pointer;
+}
