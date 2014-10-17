@@ -1,4 +1,6 @@
-*.js
+**/*.map
+**/*.legacy
+**/*.js
 legacy
 
 ## Ignore Visual Studio temporary files, build results, and
