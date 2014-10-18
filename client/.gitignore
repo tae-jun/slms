@@ -1,3 +1,6 @@
+# dist
+dist
+
 # typescript compile result .js & .map
 *.js
 *.map
