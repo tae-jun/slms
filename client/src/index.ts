@@ -23,5 +23,5 @@ var modules = [
 
 angular.module('app', modules)
     .run(($window) => {
-        
+
     });

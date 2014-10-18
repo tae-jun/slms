@@ -74,7 +74,7 @@ module.exports = function (grunt) {
         watch: {
             autoBuild: {
                 files: ['<%= src.tsout %>', 'src/**/*.css', 'src/**/*.html'],
-                tasks: ['default']
+                tasks: ['clean', 'concat', 'copy']
             }
         },
         ts: {

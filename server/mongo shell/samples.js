@@ -33,16 +33,20 @@ for (var i = 0; i < schedulerNum; i++) {
 
 schedulers = db.schedulers.find().toArray();
 
+var groupCount = 1;
+
 // create groups
 schedulers.forEach(function(scheduler){
     var max = random(groupNum);
 
     for (var i = 0; i < max; i++) {
         db.groups.insert({
-            name: '그룹 ' + i,
+            name: '그룹 ' + groupCount,
             sid: scheduler._id,
-            rgb: [random(255), random(255), random(255)]
+            rgb: [random(255), random(255), random(255)],
+            did: groupCount     // device id
         });
+        groupCount++;
     }
 });
 

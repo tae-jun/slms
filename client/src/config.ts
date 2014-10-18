@@ -6,7 +6,7 @@
 
         lightCtrlUrl: 'http://localhost/control/light',
         groupCtrlUrl: 'http://localhost/control/group',
-
+        
         lightLastUpdateTime: 500,
         groupLastUpdateTime: 500,
         schedulerLastUpdateTime: 500,

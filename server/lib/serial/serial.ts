@@ -5,7 +5,7 @@ var SerialPort = require("serialport").SerialPort;
 var serialPort = require("serialport");
 var Serial = require("serialport").SerialPort;
 
-var serial;
+var serials: any[] = [];
 
 var startTime: Date;
 var endTime: Date;
@@ -14,7 +14,7 @@ var callbacks: Function[] = [];
 
 var onData = (data) => {
     endTime = new Date;
-    console.log('data received: ' + data + ' - ' + (endTime.getTime() - startTime.getTime()) + 'ms');
+    console.log('device: ' + data + ' - ' + (endTime.getTime() - startTime.getTime()) + 'ms');
 
     while (callbacks.length)
         callbacks.pop()();
@@ -27,7 +27,7 @@ serialPort.list((err, ports) => {
     console.log(ports.length + ' ports detected');
 
     ports.forEach((port) => {
-        serial = new Serial(port.comName, {}, false);
+        var serial = new Serial(port.comName, {}, false);
 
         serial.open((err) => {
             if (err) return console.dir(err);
@@ -37,17 +37,15 @@ serialPort.list((err, ports) => {
 
             serial.on('data', onData);
         });
+
+        serials.push(serial);
     });
 });
 
 
-export function setLight(rgb: number[], callback?: Function) {
+export function setLight(rgb: number[], deviceId: number, callback?: Function) {
     if (callback == undefined)
         callback = function () { }
-
-    // !!! delete here in real environment
-    if (serial == undefined) 
-        return callback();
 
     var r = rgb[0];
     var g = rgb[1];
@@ -59,8 +57,12 @@ export function setLight(rgb: number[], callback?: Function) {
 
     startTime = new Date();
 
-    var buff = [35, 36, r, g, b, 38];
-    serial.write(buff);
+    var buff = [35, deviceId, r, g, b, 38];
+
+    serials.forEach((serial) => {
+        console.log('host: ' + buff);
+        serial.write(buff);
+    });
 
     if (callback)
         callbacks.push(callback);

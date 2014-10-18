@@ -32,7 +32,7 @@
     <Content Include="dist\selection.tpl.html" />
     <Content Include="dist\sideBar.tpl.html" />
     <Content Include="dist\topAlert.tpl.html" />
-    <Content Include="Gruntfile.js" />
+    <Content Include="GruntFile.js" />
     <Content Include="package.json" />
     <Content Include="src\global\css\modalBackdrop.css" />
     <Content Include="src\global\templates\modalBackdrop.tpl.html" />
@@ -126,7 +126,6 @@
     <TypeScriptCompile Include="src\index.ts" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="packages.config" />
     <Content Include="src\side-bar\templates\sideBar.tpl.html" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>

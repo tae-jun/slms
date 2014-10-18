@@ -19,6 +19,7 @@ export class Group {
     name: string;
     lights: string[];
     rgb: number[];
+    did: number;
 }
 
 export function findAll(callback: (groups: Group[]) => void) {

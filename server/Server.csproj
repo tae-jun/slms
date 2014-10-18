@@ -18,7 +18,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include=".gitignore" />
-    <Content Include="Gruntfile.js" />
+    <Content Include="GruntFile.js" />
     <Content Include="mongo shell\samples.js" />
     <Content Include="mongo shell\schedulerDoc.js" />
     <Content Include="web.config" />
@@ -49,12 +49,11 @@
     <TypeScriptCompile Include="Scripts\typings\express\express.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\google-maps\google.maps.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\mongodb\mongodb.d.ts" />
-    <TypeScriptCompile Include="Scripts\typings\node\node.d.ts" />
     <None Include="test\mongo\groups.spec.ts.legacy" />
     <None Include="test\mongo\lights.spec.ts.legacy" />
+    <TypeScriptCompile Include="Scripts\typings\node\node.d.ts" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="packages.config" />
     <Content Include="package.json" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
