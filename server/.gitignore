@@ -1,5 +1,5 @@
 # Why ignore express?...
-!./Scripts/typings/express/*
+!express
 
 # typescript compile result .js & .map
 *.js
