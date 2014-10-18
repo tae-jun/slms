@@ -1,4 +1,4 @@
-# Why ignore express?...
+# include express.d.ts
 !express
 
 # typescript compile result .js & .map
