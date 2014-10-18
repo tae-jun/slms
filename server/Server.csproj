@@ -17,7 +17,7 @@
     <IISExpressUseClassicPipelineMode />
   </PropertyGroup>
   <ItemGroup>
-    <None Include="Scripts\_references.js" />
+    <Content Include=".gitignore" />
     <Content Include="Gruntfile.js" />
     <Content Include="mongo shell\samples.js" />
     <Content Include="mongo shell\schedulerDoc.js" />
@@ -48,7 +48,6 @@
     <TypeScriptCompile Include="lib\serial\serial.ts" />
     <TypeScriptCompile Include="Scripts\typings\express\express.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\google-maps\google.maps.d.ts" />
-    <TypeScriptCompile Include="Scripts\typings\jasmine\jasmine.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\mongodb\mongodb.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\node\node.d.ts" />
     <None Include="test\mongo\groups.spec.ts.legacy" />

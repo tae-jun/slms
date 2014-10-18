@@ -17,6 +17,7 @@
     <IISExpressUseClassicPipelineMode />
   </PropertyGroup>
   <ItemGroup>
+    <Content Include=".gitignore" />
     <Content Include="dist\angular.js" />
     <Content Include="dist\app.css" />
     <Content Include="dist\app.js" />
@@ -65,8 +66,6 @@
     <Content Include="vendor\angular\angular-scenario.js" />
     <Content Include="vendor\angular\angular.js" />
     <Content Include="vendor\d3\d3.js" />
-    <Content Include="vendor\jasmine\jasmine-html.js" />
-    <Content Include="vendor\jasmine\jasmine.js" />
     <Content Include="vendor\jquery\jquery-2.1.1.js" />
     <Content Include="vendor\spectrum\spectrum.css" />
     <Content Include="vendor\spectrum\spectrum.js" />
@@ -120,7 +119,6 @@
     <TypeScriptCompile Include="typings\angularjs\angular-route.d.ts" />
     <TypeScriptCompile Include="typings\angularjs\angular-sanitize.d.ts" />
     <TypeScriptCompile Include="typings\angularjs\angular.d.ts" />
-    <TypeScriptCompile Include="typings\jasmine\jasmine.d.ts" />
     <TypeScriptCompile Include="typings\jquery\jquery.d.ts" />
     <TypeScriptCompile Include="src\config.ts" />
     <TypeScriptCompile Include="src\google-maps\app\googleMaps.ts" />

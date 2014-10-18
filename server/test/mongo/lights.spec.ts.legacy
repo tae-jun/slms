@@ -1,0 +1,57 @@
+﻿/// <reference path="../../scripts/typings/jasmine/jasmine.d.ts" />
+import lights = require('../../lib/mongo/lights');
+
+describe('Collection lights spec', () => {
+
+    var testLight: lights.Light;
+
+    it('should connect to mongodb before test', (done) => {
+        if (lights.isConnected)
+            done();
+        else lights.done = done;
+    });
+
+    it('should create one document of light', (done) => {
+        var light = new lights.Light();
+        light.name = 'test light';
+        light.lat = 12;
+        light.lng = 123;
+
+        lights.create(light, (result) => {
+            testLight = result;
+            expect(testLight._id).toBeDefined();
+            done();
+        });
+    });
+
+    it('should find light just created', (done) => {
+        lights.findByID(testLight._id, (item) => {
+            expect(item).toEqual(testLight);
+            done();
+        });
+    });
+
+    it('should find all lights', (done) => {
+        lights.findAll((items) => {
+            expect(items.length).toBeGreaterThan(0);
+            expect(items).toContain(testLight);
+            done();
+        });
+    });
+
+    it('should update light just found', (done) => {
+        testLight.name = 'changed';
+        
+        lights.update(testLight._id, { name: testLight.name }, (result) => {
+            expect(result).toBe(1);
+            done();
+        });
+    });
+
+    it('should remove light just updated', (done) => {
+        lights.remove(testLight._id, (numOfRemoved) => {
+            expect(numOfRemoved).toBe(1);
+            done();
+        });
+    });
+});
