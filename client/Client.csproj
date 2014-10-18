@@ -33,7 +33,6 @@
     <Content Include="dist\sideBar.tpl.html" />
     <Content Include="dist\topAlert.tpl.html" />
     <Content Include="Gruntfile.js" />
-    <None Include="Gruntfile.js.legacy" />
     <Content Include="package.json" />
     <Content Include="src\global\css\modalBackdrop.css" />
     <Content Include="src\global\templates\modalBackdrop.tpl.html" />
