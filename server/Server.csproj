@@ -26,8 +26,6 @@
   <ItemGroup>
     <TypeScriptCompile Include="app.ts" />
     <TypeScriptCompile Include="config.ts" />
-    <None Include="lib\mongo\groups.ts.legacy" />
-    <None Include="lib\mongo\lights.ts.legacy" />
     <TypeScriptCompile Include="lib\mongo\connect.ts" />
     <TypeScriptCompile Include="lib\mongo\main\db.ts" />
     <TypeScriptCompile Include="lib\mongo\main\groups.ts" />
