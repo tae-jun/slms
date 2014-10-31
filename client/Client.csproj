@@ -76,9 +76,7 @@
     <TypeScriptCompile Include="src\global\directives\color.ts" />
     <TypeScriptCompile Include="src\global\directives\modalBackdrop.ts" />
     <TypeScriptCompile Include="src\global\directives\ngContextMenu.ts" />
-    <None Include="src\global\services\groups.ts.regacy" />
     <TypeScriptCompile Include="src\global\services\groupService.ts" />
-    <None Include="src\global\services\lights.ts.legacy" />
     <TypeScriptCompile Include="src\global\services\lightService.ts" />
     <TypeScriptCompile Include="src\global\services\modalService.ts" />
     <TypeScriptCompile Include="src\global\services\schedulers.ts" />
