@@ -13,7 +13,7 @@ import config = require('./config');
 var app = express();
 
 // router configures
-require('./lib/routes/static/static')(app);
+require('./src/routes/static/static')(app);
 app.use(express.json());        // to support JSON-encoded bodies
 app.use(express.urlencoded());  // to support URL-encoded bodies
 
@@ -22,7 +22,7 @@ app.use(express.logger('dev'));
 app.use(app.router);
 
 // routes
-require('./lib/routes/index')(app);
+require('./src/routes/index')(app);
 
 http.createServer(app).listen(config.port, function () {
     console.log('Express server listening on port ' + config.port);
