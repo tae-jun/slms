@@ -32,6 +32,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -39,8 +40,46 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Config.cs" />
+    <Compile Include="iLON_SoapCalls.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Request.cs" />
+    <Compile Include="Service References\iLON_SmartServer\Reference.cs" />
+    <Compile Include="Service References\iLON_SmartServer\Reference1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Startup.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Service References\iLON_SmartServer\configuration.svcinfo" />
+    <Content Include="Service References\iLON_SmartServer\configuration91.svcinfo" />
+    <Content Include="Service References\iLON_SmartServer\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference1.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\iLON_SmartServer\iLON100.wsdl" />
+    <None Include="Service References\iLON_SmartServer\iLON100.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\iLON_SmartServer\iLON100_baseTypes.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\iLON_SmartServer\StreetLightServer.iLON_SmartServer.ClearResponse.datasource" />
+    <None Include="Service References\iLON_SmartServer\StreetLightServer.iLON_SmartServer.DeleteResponse.datasource" />
+    <None Include="Service References\iLON_SmartServer\StreetLightServer.iLON_SmartServer.GetResponse.datasource" />
+    <None Include="Service References\iLON_SmartServer\StreetLightServer.iLON_SmartServer.InvokeCmdResponse.datasource" />
+    <None Include="Service References\iLON_SmartServer\StreetLightServer.iLON_SmartServer.Item_CfgColl.datasource" />
+    <None Include="Service References\iLON_SmartServer\StreetLightServer.iLON_SmartServer.Item_Coll.datasource" />
+    <None Include="Service References\iLON_SmartServer\StreetLightServer.iLON_SmartServer.Item_DataColl.datasource" />
+    <None Include="Service References\iLON_SmartServer\StreetLightServer.iLON_SmartServer.ListResponse.datasource" />
+    <None Include="Service References\iLON_SmartServer\StreetLightServer.iLON_SmartServer.messageProperties.datasource" />
+    <None Include="Service References\iLON_SmartServer\StreetLightServer.iLON_SmartServer.ReadResponse.datasource" />
+    <None Include="Service References\iLON_SmartServer\StreetLightServer.iLON_SmartServer.SetResponse.datasource" />
+    <None Include="Service References\iLON_SmartServer\StreetLightServer.iLON_SmartServer.WriteResponse.datasource" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

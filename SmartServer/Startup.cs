@@ -8,9 +8,14 @@ namespace SmartServer
 {
     public class Startup
     {
-        public async Task<object> Invoke(object input)
+        public async Task<object> read(object input)
         {
-            return "Hello World from C#";
+            return Request.read(input);
+        }
+
+        public async Task<object> write(object input)
+        {
+            return Request.write(input);
         }
     }
 }

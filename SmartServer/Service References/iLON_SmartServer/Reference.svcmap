@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="52f0fcd2-e66d-427a-b7a7-2974cbae8193" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://192.168.1.222/WSDL/v4.0/iLON100.WSDL" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="iLON100_baseTypes.xsd" MetadataType="Schema" ID="9054ccd8-2b11-4a02-bd37-31656f54c2a1" SourceId="1" SourceUrl="http://192.168.1.222/WSDL/v4.0/iLON100_baseTypes.xsd" />
+    <MetadataFile FileName="iLON100.xsd" MetadataType="Schema" ID="f2ce6b22-1e82-4bfc-a8c3-2ca0e20a6396" SourceId="1" SourceUrl="http://192.168.1.222/WSDL/v4.0/iLON100.xsd" />
+    <MetadataFile FileName="iLON100.wsdl" MetadataType="Wsdl" ID="1aead658-a744-492f-afd4-49232980dd97" SourceId="1" SourceUrl="http://192.168.1.222/WSDL/v4.0/iLON100.WSDL" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

@@ -21,11 +21,13 @@
     <Content Include="GruntFile.js" />
     <Content Include="mongo shell\samples.js" />
     <Content Include="mongo shell\schedulerDoc.js" />
+    <Content Include="src\smart-server\SmartServer.dll" />
     <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="app.ts" />
     <TypeScriptCompile Include="config.ts" />
+    <TypeScriptCompile Include="Scripts\typings\edge\edge.d.ts" />
     <TypeScriptCompile Include="src\mongo\connect.ts" />
     <TypeScriptCompile Include="src\mongo\main\db.ts" />
     <TypeScriptCompile Include="src\mongo\main\groups.ts" />

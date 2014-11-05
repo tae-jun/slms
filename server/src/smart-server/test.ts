@@ -1,8 +1,13 @@
-﻿var edge = require('edge');
+﻿import edge = require('edge');
 
-var sayHi = edge.func('SmartServer.dll');
+var option: edge.IFuncOption = {
+    assemblyFile: 'SmartServer.dll',
+    methodName: 'read'
+};
 
-sayHi(1, (err, result) => {
+var read = edge.func(option);
+
+read({id: 'sadfsadf'}, (err, result) => {
     if (err) throw err;
     console.log(result);
-}); 
+});

@@ -1,0 +1,2231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<schema xmlns:ilon="http://wsdl.echelon.com/web_services_ns/ilon100/v4.0/message/" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://wsdl.echelon.com/web_services_ns/ilon100/v4.0/message/" xmlns="http://www.w3.org/2001/XMLSchema">
+  <include schemaLocation="iLON100_baseTypes.xsd" />
+  <annotation>
+    <appinfo>
+			_________________________________________________________
+			i.LON100's general declaration of types and enumerations.
+			The declarations are used for the SOAP interface.
+			_________________________________________________________
+			It is prohibited to change any declaration in this file!
+
+			Copyright 2007 Echelon Corporation
+			http://www.echelon.com
+			_________________________________________________________
+		</appinfo>
+    <documentation xml:lang="en-us">
+			THIS SECTION DESCRIBES THE XSD-SCHEMA TYPES VIEW
+			________________________________________________________________________________________________________________
+			xsi:type name constraint    : [specialized{LON;MOD;..}]_[Layer{Channel;FB;DP;UFPT;..}]_[Meta]_[Cfg or Data]
+
+			[gen] shortened [generalized]: a common Item for any specialized Item in the same Layer [Channel;FB;DP;..]
+			[spc] shortened [specialized]: a specialized Item in a Layer [Channel;FB;DP;..]
+			[svc] shortened [service]    : an Item which provides a service [WebBinder;FileSystem;..]
+			[abstract]                   : this Item is decalred but doesn't exist (can't be instantiated)
+			[L;G;S;D;R;W;C;I] shortened  : soap-operations L(ist); G(et); S(et); D(elete); R(ead); W(rite); C(lear); (I)nvoke
+			________________________________________________________________________________________________________________
+			Item [xsd-general base type]
+			|
+			|
+			+--  Item_Service                         [svc]  (the Item type for a service [svc] responses)
+			|
+			|
+			|                     ________________________________________________________________________________
+			+--  Item_Cfg  --+--  Network_Cfg         [gen]                                              [L;G;D]
+			|                +--  LON_Network_Cfg     [spc]                                              [L;G;S;D]
+			|                +--  MOD_Network_Cfg     [spc]                                              [L;G;S;D]
+			|                +--  MBS_Network_Cfg     [spc]                                              [L;G;S;D]
+			|                +--  Virtual_Network_Cfg [spc]                                              [L;G;S;D]
+			|                |
+			|                |    ________________________________________________________________________________
+			|                +--  Channel_Cfg         [gen]                                              [L;G;S;D]
+			|                +--  LON_Channel_Cfg     [spc]                                              [L;G;S;D]
+			|                +--  MOD_Channel_Cfg     [spc]                                              [L;G;S;D]
+			|                +--  MBS_Channel_Cfg     [spc]                                              [L;G;S;D]
+			|                +--  Virtual_Channel_Cfg [spc]                                              [L;G;S;D]
+			|                |
+			|                |    ________________________________________________________________________________
+			|                +--  Device_Cfg          [gen]
+			|                +--  LON_Device_Cfg      [spc] --+--  LON_Device_NetworkInterface_Cfg       [L;G;S;D]
+			|                |                                +--  LON_Device_RNI_Cfg                    [L;G;S;D]
+			|                |                                +--  LON_Device_Router_Cfg                 [L;G;S;D]
+			|                +--  MOD_Device_Cfg      [spc]                                              [L;G;S;D]
+			|                +--  MBS_Device_Cfg      [spc]                                              [L;G;S;D]
+			|                +--  Virtual_Device_Cfg  [spc]                                              [L;G;S;D]
+			|                |
+			|                |    ________________________________________________________________________________
+			|                +--  Fb_Cfg              [gen] --+--  UFPTalarmGenerator_Cfg                [L;G;S;D]
+			|                |                                +--  UFPTalarmNotifier_Cfg                 [L;G;S;D]
+			|                |                                +--  UFPTanalogFunctionBlock_Cfg           [L;G;S;D]
+			|                |                                +--  UFPTcalendar_Cfg                      [L;G;S;D]
+			|                |                                +--  UFPTdataLogger_Cfg                    [L;G;S;D]
+			|                |                                +--  UFPTdigitalInput_Cfg                  [L;G;S;D]
+			|                |                                +--  UFPTdigitalOutput_Cfg                 [L;G;S;D]
+			|                |                                +--  UFPTnodeObject_Cfg                    [L;G;S;D]
+			|                |                                +--  UFPTpulseCounter_Cfg                  [L;G;S;D]
+			|                |                                +--  UFPTrealTimeClock_Cfg                 [L;G;S;D]
+			|                |                                +--  UFPTscheduler_Cfg                     [L;G;S;D]
+			|                |                                +--  UFPTtypeTranslator_Cfg                [L;G;S;D]
+			|                |                                +--  UFPTtypeTranslator_Rule_Cfg           [L;G;S;D]
+			|                |                                +--  FPM_Cfg                               [L;G;S;D]
+			|                +--  LON_Fb_Cfg          [spc]                                              [L;G;S;D]
+			|                +--  MOD_Fb_Cfg          [spc]                                              [L;G;S;D]
+			|                +--  MBS_Fb_Cfg          [spc]                                              [L;G;S;D]
+			|                +--  Virtual_Fb_Cfg      [spc]                                              [L;G;S;D]
+			|                |
+			|                |    ________________________________________________________________________________
+			|                +--  Dp_Cfg              [gen]                                              [L;G;S;D]
+			|                +--  LON_Dp_Cfg          [spc]                                              [L;G;S;D]
+			|                +--  LON_Cp_File_Cfg     [spc]                                              [L;G;S;D]
+			|                +--  LON_Cp_Dp_Cfg       [spc]                                              [L;G;S;D]
+			|                +--  MOD_Dp_Cfg          [spc]                                              [L;G;S;D]
+			|                +--  MBS_Dp_Cfg          [spc]                                              [L;G;S;D]
+			|                +--  Virtual_Dp_Cfg      [spc]                                              [L;G;S;D]
+			|                |
+			|                |    ================================================================================
+			|                +--  Dp_Ref              [svc]                                              [L;G;S;D]
+			|                +--  FileSystem_Cfg      [svc]                                              [L;G]
+			|                +--  TemplateManager_Cfg [svc] --+--  TemplateManager_FILE_Cfg              [L;G;D]
+			|                                                 +--  TemplateManager_NVT_Cfg               [L;G;D]
+			|                                                 +--  TemplateManager_CPT_Cfg               [L;G;D]
+			|                                                 +--  TemplateManager_ENUM_Cfg              [L;G;D]
+			|                                                 +--  TemplateManager_FPT_Cfg               [L;G;D]
+			|                                                 +--  TemplateManager_Surrogate_Cfg         [L;G;S;D]
+			|
+			|                     ________________________________________________________________________________
+			+-------------------  LON_Device_Command_Invoke                                              [I]
+			+-------------------  LON_Network_Command_Invoke                                             [I]
+			+-------------------  LON_Network_DeviceCommand_Invoke                                       [I]
+			+-------------------  LON_Network_ScanCommand_Invoke                                         [I]
+			+--  Item_Data --+--  LON_Device_StatusData_InvokeResponse                                   [I-Resp]
+			|                +--  LON_Device_RepeatingData_InvokeResponse                                [I-Resp]
+			|                +--  LON_Device_PowerlineData_InvokeResponse                                [I-Resp]
+			|                +--  LON_Device_ProxyData_InvokeResponse                                    [I-Resp]
+			|                |
+			|                |    ________________________________________________________________________________
+			|                +--  Fb_Data             [gen] --+--  UFPTalarmNotifier_Data      [Dp_Data] [R;W;C]
+			|                |                                +--  UFPTalarmNotifier_Meta_Data           [R-Resp]
+			|                |                                +--  UFPTalarmNotifier_ClearResponse       [C-Resp]
+			|                |                                +--  UFPTdataLogger_Data         [Dp_Data] [R;C]
+			|                |                                +--  UFPTdataLogger_Meta_Data              [R-Resp]
+			|                |                                +--  UFPTdataLogger_ClearResponse          [C-Resp]
+			|                |                                +--  UFPTcalendar_Data                     [R]
+			|                |                                +--  UFPTrealTimeClock_Data                [R]
+			|                |                                +--  UFPTscheduler_Data          [Dp_Data] [R]
+			|                |                                +--  UFPTscheduler_Meta_Data               [Resp]
+			|                |                                +--  UFPTscheduler_Calendar_Meta_Data      [R]
+			|                |                                +--  UFPTscheduler_Calendar_Request_Data   [R]
+			|                |                                +--  UFPTscheduler_RealTimeClock_Meta_Data [R]
+			|                |                                +--  UFPTscheduler_RealTimeClock_Request_Data   [R]
+			|                |                                +--  UFPTscheduler_ListSchedules_Invoke         [I]
+			|                |                                +--  UFPTscheduler_ListSchedules_InvokeResponse [I-Resp]
+			|                |
+			|                |    ________________________________________________________________________________
+			|                +--  Dp_Data             [gen]                                              [R;W;C]
+			+----------------|--  Dp_ResetPrio_Invoke                                                    [I]
+			|                |
+			|                |    ================================================================================
+			|                +--  FileSystem_Data     [svc]                                              [L;R;W;D]
+			|                +--  TemplateManager_Data_Invoke         [svc]                              [I]
+			|                +--  TemplateManager_Data_InvokeResponse [svc]                              [I-Resp]
+
+		</documentation>
+    <documentation xml:lang="en-us">
+			THIS SECTION DESCRIBES THE XML-DOCUMENT VIEW (important for defining 'xSelect' statements)
+			________________________________________________________________________________________________________________
+			The iLon100 e4 supports 'xSelect' statements which are used as a request filter.
+			'xSelect' is "geared to the xPath" expressions and can contain any 'Item'-'xsi:type' as well (see tree below).
+
+			The operation 'List' supports only the 'xSelect' statement. All corresponding Item-instances will always return
+			the 'base type'-'Item' (or exceptionally 'Item_Service' which are derived from 'base type'-'Item').
+
+			The operations 'Get', 'Read', 'Delete' and 'Clear' can be called with:
+			- the 'xSelect' statement. All corresponding Item-instances will be affected.
+			- and/or a collection of Items. All corresponding Item-instances (with same UCPTname) will be affected.
+			In this case the 'xSelect' statement will be logically ANDed with the Item-instances' UCPTname.
+
+			Each declared xsd:type with the base type 'Item' contains at least one 'xSelect'-example.
+			Please IGNORE the tag  <![CDATA[ xSelect ]]>, only the 'xSelect' statement inside is important.
+
+			Any example can be appended with:
+
+			1. a 'UCPTlastUpdate' expression
+			<![CDATA[
+				xSelect.append("[UCPTlastUpdate>="2007-01-15T15:30:21Z" and UCPTlastUpdate<"2007-02-11T15:30:21Z"]")
+			]]>
+
+			2. a 'position()' expression
+			<![CDATA[
+				xSelect.append("[position()>10 and position()<30]")
+			]]>
+			________________________________________________________________________________________________________________
+			[xml-tag] -------+-- [xml-tag attribute 'xsi:type']
+
+			Item ------------+   ["Item" itself has none attribute 'xsi:type']       [gen/spc]
+			.                |
+			.                +-- @xsi:type="Item_Service"                            [svc]
+			.                |
+			.                |   ================================================================================
+			.                +-- @xsi:type="Item_Cfg"                                [gen/spc]
+			.                |   ________________________________________________________________________________
+			.                +-- @xsi:type="Network_Cfg"                             [gen]
+			.                +-- @xsi:type="LON_Network_Cfg"                         [spc]
+			.                +-- @xsi:type="MOD_Network_Cfg"                         [spc]
+			.                +-- @xsi:type="MBS_Network_Cfg"                         [spc]
+			.                +-- @xsi:type="Virtual_Network_Cfg"                     [spc]
+			.                |   ________________________________________________________________________________
+			.                +-- @xsi:type="Channel_Cfg"                             [gen]
+			.                +-- @xsi:type="LON_Channel_Cfg"                         [spc]
+			.                +-- @xsi:type="MOD_Channel_Cfg"                         [spc]
+			.                +-- @xsi:type="MBS_Channel_Cfg"                         [spc]
+			.                +-- @xsi:type="Virtual_Channel_Cfg"                     [spc]
+			.                |   ________________________________________________________________________________
+			.                +-- @xsi:type="Device_Cfg"                              [gen]
+			.                +-- @xsi:type="LON_Device_Cfg"                          [spc]
+			.                +-- @xsi:type="LON_Device_NetworkInterface_Cfg"         [spc]
+			.                +-- @xsi:type="LON_Device_RNI_Cfg"                      [spc]
+			.                +-- @xsi:type="LON_Device_Router_Cfg"                   [spc]
+			.                +-- @xsi:type="MOD_Device_Cfg"                          [spc]
+			.                +-- @xsi:type="MBS_Device_Cfg"                          [spc]
+			.                +-- @xsi:type="Virtual_Device_Cfg"                      [spc]
+			.                |   ________________________________________________________________________________
+			.                +-- @xsi:type="Fb_Cfg"                                  [gen]
+			.                +-- @xsi:type="UFPTalarmGenerator_Cfg"                  [gen]
+			.                +-- @xsi:type="UFPTalarmNotifier_Cfg"                   [gen]
+			.                +-- @xsi:type="UFPTanalogFunctionBlock_Cfg"             [gen]
+			.                +-- @xsi:type="UFPTcalendar_Cfg"                        [gen]
+			.                +-- @xsi:type="UFPTdataLogger_Cfg"                      [gen]
+			.                +-- @xsi:type="UFPTdigitalInput_Cfg"                    [gen]
+			.                +-- @xsi:type="UFPTdigitalOutput_Cfg"                   [gen]
+			.                +-- @xsi:type="UFPTnodeObject_Cfg"                      [gen]
+			.                +-- @xsi:type="UFPTpulseCounter_Cfg"                    [gen]
+			.                +-- @xsi:type="UFPTrealTimeClock_Cfg"                   [gen]
+			.                +-- @xsi:type="UFPTscheduler_Cfg"                       [gen]
+			.                +-- @xsi:type="UFPTtypeTranslator_Cfg"                  [gen]
+			.                +-- @xsi:type="UFPTtypeTranslator_Rule_Cfg"             [gen]
+			.                +-- @xsi:type="FPM_Cfg"                                 [gen]
+			.                +-- @xsi:type="LON_Fb_Cfg"                              [spc]
+			.                +-- @xsi:type="MOD_Fb_Cfg"                              [spc]
+			.                +-- @xsi:type="MBS_Fb_Cfg"                              [spc]
+			.                +-- @xsi:type="Virtual_Fb_Cfg"                          [spc]
+			.                |   ________________________________________________________________________________
+			.                +-- @xsi:type="Dp_Cfg"                                  [gen]
+			.                +-- @xsi:type="LON_Dp_Cfg"                              [spc]
+			.                +-- @xsi:type="LON_Cp_File_Cfg"                         [spc]
+			.                +-- @xsi:type="LON_Cp_Dp_Cfg"                           [spc]
+			.                +-- @xsi:type="MOD_Dp_Cfg"                              [spc]
+			.                +-- @xsi:type="MBS_Dp_Cfg"                              [spc]
+			.                +-- @xsi:type="Virtual_Dp_Cfg"                          [spc]
+			.                |   ________________________________________________________________________________
+			.                +-- @xsi:type="Dp_Ref"                                  [gen]
+			.                +-- @xsi:type="FileSystem_Cfg"                          [svc]
+			.                +-- @xsi:type="TemplateManager_Cfg"                     [svc]
+			.                +-- @xsi:type="TemplateManager_FILE_Cfg"                [svc]
+			.                +-- @xsi:type="TemplateManager_NVT_Cfg"                 [svc]
+			.                +-- @xsi:type="TemplateManager_CPT_Cfg"                 [svc]
+			.                +-- @xsi:type="TemplateManager_ENUM_Cfg"                [svc]
+			.                +-- @xsi:type="TemplateManager_FPT_Cfg"                 [svc]
+			.                +-- @xsi:type="TemplateManager_Surrogate_Cfg"           [svc]
+			.                +-- @xsi:type="TemplateManager_Data_Invoke"             [svc]
+			.                +-- @xsi:type="TemplateManager_Data_InvokeResponse"     [svc]
+			.                |
+			.                |   ================================================================================
+			.                +-- @xsi:type="Item_Data"                               [gen/spc]
+			.                |   ________________________________________________________________________________
+			.                +-- @xsi:type="LON_Device_StatusData_InvokeResponse"    [spc]
+			.                +-- @xsi:type="LON_Device_RepeatingData_InvokeResponse" [spc]
+			.                +-- @xsi:type="LON_Device_PowerlineData_InvokeResponse" [spc]
+			.                +-- @xsi:type="LON_Device_ProxyData_InvokeResponse"     [spc]
+			.                |   ________________________________________________________________________________
+			.                +-- @xsi:type="Fb_Data"                                 [gen]
+			.                +-- @xsi:type="UFPTalarmNotifier_Data"                  [gen]
+			.                +-- @xsi:type="UFPTalarmNotifier_Meta_Data"             [gen]
+			.                +-- @xsi:type="UFPTalarmNotifier_ClearResponse"         [gen]
+			.                +-- @xsi:type="UFPTdataLogger_Data"                     [gen]
+			.                +-- @xsi:type="UFPTdataLogger_Meta_Data"                [gen]
+			.                +-- @xsi:type="UFPTdataLogger_ClearResponse"            [gen]
+			.                +-- @xsi:type="UFPTcalendar_Data"                       [gen]
+			.                +-- @xsi:type="UFPTrealTimeClock_Data"                  [gen]
+			.                +-- @xsi:type="UFPTscheduler_Data"                         [gen]
+			.                +-- @xsi:type="UFPTscheduler_Meta_Data"                    [gen]
+			.                +-- @xsi:type="UFPTscheduler_Calendar_Meta_Data"           [gen]
+			.                +-- @xsi:type="UFPTscheduler_Calendar_Request_Data"        [gen]
+			.                +-- @xsi:type="UFPTscheduler_RealTimeClock_Meta_Data"      [gen]
+			.                +-- @xsi:type="UFPTscheduler_RealTimeClock_Request_Data"   [gen]
+			.                +-- @xsi:type="UFPTscheduler_ListSchedules_Invoke"         [gen]
+			.                +-- @xsi:type="UFPTscheduler_ListSchedules_InvokeResponse" [gen]
+			.                |   ________________________________________________________________________________
+			.                +-- @xsi:type="Dp_Data"                                 [gen]
+			.                +-- @xsi:type="Dp_ResetPrio_Invoke"                     [gen]
+			.                |   ________________________________________________________________________________
+			.                +-- @xsi:type="FileSystem_Data"                         [svc]
+		</documentation>
+    <documentation xml:lang="en-us">
+			THIS SECTION DESCRIBES THE LOGICAL INTERPRETATION OF THE XML-ITEM INSTANCES
+			________________________________________________________________________________________________________________
+			1. iLon100 e4 supports only one Network which contains a unbounded count of Channel-, Device-, Fb- and Dp-Items.
+			2. The Network-, Channel-, Device-, Fb- and Dp-Items are not orgonized in a structure, but they are loosely
+			coupled according the naming convention UCPTname="NetworkName/ChannelName/DeviceName/FbName/DpName"
+			3. All other Items are a Service. They have no further dependencies.
+			________________________________________________________________________________________________________________
+			[..]
+			|
+			+-- Network --+
+			|             /
+			|             +--Channel --+
+			|                          /
+			|                          +-- Device --+
+			|                                       /
+			|                                       +-- Fb --+
+			|                                                /
+			|                                                +-- Dp
+			|
+			+-- Service  ---+-- Dp_Ref
+			|               +-- FileSystem
+			|               +-- TemplateManager
+			|
+
+		</documentation>
+  </annotation>
+  <complexType name="Network_Cfg">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				Generalized network configuration type.
+					Example: xSelect="//Item[@xsi:type="Network_Cfg"]"
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:Item_Cfg" />
+    </complexContent>
+  </complexType>
+  <complexType name="Channel_Cfg">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				Generalized channel configuration type.
+					Example:  xSelect="//Item[@xsi:type="Channel_Cfg"]"
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:Item_Cfg" />
+    </complexContent>
+  </complexType>
+  <complexType name="Device_Cfg">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				Generalized device configuration type.
+					Example:  xSelect="//Item[@xsi:type="Device_Cfg"]"
+					Example:  xSelect="//Item[@xsi:type="Device_Cfg"][starts-with(UCPTname,'Net/LON/')]"
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:Item_Cfg" />
+    </complexContent>
+  </complexType>
+  <complexType name="Fb_Cfg">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				Generalized functional block configuration type. It contains an array of 'E_DpRef'.
+					Example:  xSelect="//Item[@xsi:type="Fb_Cfg"]"
+					Example:  xSelect="//Item[@xsi:type="Fb_Cfg"][starts-with(UCPTname,'Net/LON/BAS/')]"
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:Item_Cfg">
+        <sequence>
+          <element minOccurs="0" maxOccurs="unbounded" name="DataPoint" type="ilon:E_DpRef" />
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="Dp_Cfg_Base" abstract="true">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				This is the base class for all further <foo>Dp_Cfg classes
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:Item_Cfg">
+        <sequence>
+          <element name="UCPTformatDescription" type="string" />
+          <element minOccurs="0" name="UCPTlength" type="int" />
+          <element minOccurs="0" name="UCPTdirection" type="ilon:E_LonString" />
+          <element minOccurs="0" name="UCPTpersist" type="ilon:E_Flag" />
+          <element minOccurs="0" name="UCPTdefOutput" type="ilon:E_LonString" />
+          <element minOccurs="0" maxOccurs="unbounded" name="UCPTunit" type="ilon:E_Unit" />
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="Dp_Cfg">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				Generalized data point configuration type.
+					Example:  xSelect="//Item[@xsi:type="Dp_Cfg"]"
+					Example:  xSelect="//Item[@xsi:type="Dp_Cfg"][starts-with(UCPTname,'Net/LON/BAS/Alarm Generator 1/')]"
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:Dp_Cfg_Base">
+        <sequence>
+          <element minOccurs="0" name="UCPTbaseType" type="ilon:E_LonString" />
+          <element minOccurs="0" name="UCPTprecision" type="int" />
+          <element minOccurs="0" name="UCPTmaxFields" type="int" />
+          <element minOccurs="0" name="SCPTmaxSendTime" type="float" />
+          <element minOccurs="0" name="SCPTminSendTime" type="float" />
+          <element minOccurs="0" name="SCPTmaxRcvTime" type="float" />
+          <element minOccurs="0" name="SCPTsndDelta" type="ilon:E_LonString" />
+          <element minOccurs="0" name="UCPTminValue" type="ilon:E_LonString" />
+          <element minOccurs="0" name="UCPTmaxValue" type="ilon:E_LonString" />
+          <element minOccurs="0" name="UCPTinvalidValue" type="ilon:E_LonString" />
+          <element minOccurs="0" maxOccurs="unbounded" name="ValueDef" type="ilon:Dp_CfgValueDef" />
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="Dp_CfgValueDef">
+    <sequence>
+      <element minOccurs="0" name="UCPTindex" type="int" />
+      <element name="UCPTname" type="string" />
+      <element name="UCPTvalue" type="ilon:E_LonString" />
+    </sequence>
+  </complexType>
+  <complexType name="Fb_Data" abstract="true">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				Generalized functional block data type (abstract).
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:Item_Data" />
+    </complexContent>
+  </complexType>
+  <complexType name="Dp_Data">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				Generalized data point data type.
+					Example:  xSelect="//Item[@xsi:type="Dp_Data"][starts-with(UCPTname,'Net/')]"
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:Item_Data">
+        <sequence>
+          <element minOccurs="0" maxOccurs="unbounded" name="UCPTvalue" type="ilon:E_LonString" />
+          <element minOccurs="0" name="UCPTpointStatus" type="ilon:E_LonString" />
+          <element minOccurs="0" name="UCPTpriority" type="ilon:E_Priority" />
+          <element minOccurs="0" name="UCPTmaxAge" type="float" />
+          <element minOccurs="0" name="UCPTpropagate" type="ilon:E_Flag" />
+          <element minOccurs="0" name="UCPTmetaDataPath" type="ilon:E_Path" />
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="Dp_ResetPrio_Invoke">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				Resets a Dp's priority (called with 'InvokeCmd' operation)
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:Item">
+        <sequence>
+          <element minOccurs="0" name="UCPTpriority" type="ilon:E_Priority" />
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="FPM_Cfg">
+    <complexContent mixed="false">
+      <extension base="ilon:Fb_Cfg">
+        <attribute name="fpmType" type="string" use="required" />
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="UFPTanalogFunctionBlock_Cfg">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				Generalized configuration type of the 'UFPTanalogFunctionBlock'.
+					Example:  xSelect="//Item[@xsi:type="UFPTanalogFunctionBlock_Cfg"]"
+					Example:  xSelect="//Item[@xsi:type="UFPTanalogFunctionBlock_Cfg"][starts-with(UCPTname,'Net/LON/BAS/')]"
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:Fb_Cfg">
+        <sequence>
+          <element name="UCPTcompFunction" type="ilon:E_LonString" />
+          <element name="UCPTmajorityValue" type="float" />
+          <element minOccurs="0" name="UCPTtrueThreshold" type="ilon:E_LonString" />
+          <element name="UCPToutputFunction" type="ilon:E_LonString" />
+          <element minOccurs="0" name="SCPTminRnge" type="ilon:E_LonString" />
+          <element minOccurs="0" name="SCPTmaxRnge" type="ilon:E_LonString" />
+          <element name="UCPTcalculationInterval" type="double" />
+          <element minOccurs="0" name="UCPTcalculationMatrix" type="int" />
+          <element name="SCPTovrBehave" type="ilon:E_LonString" />
+          <element minOccurs="0" name="SCPTovrValue" type="ilon:E_LonString" />
+          <element name="UCPTpollOnResetDelay" type="double" />
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="UFPTanalogFunctionBlock_DpRef">
+    <complexContent mixed="false">
+      <extension base="ilon:E_DpRef">
+        <sequence>
+          <element minOccurs="0" name="UCPTfieldName" type="string" />
+          <element minOccurs="0" name="UCPTpollRate" type="double" />
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="UFPTalarmGenerator_Cfg">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				Generalized configuration type of the 'UFPTalarmGenerator'.
+					Example:  xSelect="//Item[@xsi:type="UFPTalarmGenerator_Cfg"]"
+					Example:  xSelect="//Item[@xsi:type="UFPTalarmGenerator_Cfg"][starts-with(UCPTname,'Net/LON/BAS/')]"
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:Fb_Cfg">
+        <sequence>
+          <element name="UCPTalrmIhbD" type="double" />
+          <element name="UCPTalarmPriority" type="ilon:E_LonString" />
+          <element name="UCPTpollOnResetDelay" type="double" />
+          <element name="UCPTpollRate" type="double" />
+          <element name="UCPTalarm2Description" type="string" />
+          <element name="UCPTcompFunction" type="ilon:E_LonString" />
+          <element name="UCPTalarmSetTimeD" type="double" />
+          <element name="UCPTalarmClrTimeD" type="double" />
+          <element minOccurs="0" name="UCPTlowLimit1Offset" type="ilon:E_LonString" />
+          <element minOccurs="0" name="UCPTlowLimit2Offset" type="ilon:E_LonString" />
+          <element minOccurs="0" name="UCPThighLimit1Offset" type="ilon:E_LonString" />
+          <element minOccurs="0" name="UCPThighLimit2Offset" type="ilon:E_LonString" />
+          <element minOccurs="0" name="SCPThystHigh1" type="ilon:E_LonString" />
+          <element minOccurs="0" name="SCPThystHigh2" type="ilon:E_LonString" />
+          <element minOccurs="0" name="SCPThystLow1" type="ilon:E_LonString" />
+          <element minOccurs="0" name="SCPThystLow2" type="ilon:E_LonString" />
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="UFPTalarmNotifier_Cfg">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				Generalized configuration type of the 'UFPTalarmNotifier'.
+					Example:  xSelect="//Item[@xsi:type="UFPTalarmNotifier_Cfg"]"
+					Example:  xSelect="//Item[@xsi:type="UFPTalarmNotifier_Cfg"][starts-with(UCPTname,'Net/LON/BAS/')]"
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:Fb_Cfg">
+        <sequence>
+          <element minOccurs="0" name="SCPTdelayTime" type="double" />
+          <element name="UCPTsumLogSize" type="float" />
+          <element name="UCPThistLogSize" type="float" />
+          <element minOccurs="0" name="UCPTlogFormat" type="ilon:E_LonString" />
+          <element name="UCPTsumLogFileName" type="string" />
+          <element name="UCPThistLogFileName" type="string" />
+          <element minOccurs="0" name="UCPTemailAggregTime" type="int" />
+          <element minOccurs="0" maxOccurs="unbounded" name="Mail">
+            <complexType>
+              <sequence>
+                <element minOccurs="0" name="UCPTindex" type="int" />
+                <element minOccurs="0" name="UCPTnickName" type="string" />
+                <element name="UCPTemailAddress" type="string" />
+                <element name="UCPTemailFormat" type="string" />
+                <element minOccurs="0" name="UCPTemailSubject" type="string" />
+                <element minOccurs="0" name="UCPTemailAttachment" type="string" />
+              </sequence>
+            </complexType>
+          </element>
+          <element minOccurs="0" maxOccurs="unbounded" name="ActiveAlarm" type="ilon:UFPTalarmNotifier_CfgAlarm" />
+          <element minOccurs="0" maxOccurs="unbounded" name="PassiveAlarm" type="ilon:UFPTalarmNotifier_CfgAlarm" />
+          <element minOccurs="0" maxOccurs="unbounded" name="AlarmDest">
+            <complexType>
+              <sequence>
+                <element minOccurs="0" name="UCPTindex" type="int" />
+                <element minOccurs="0" name="UCPTenablePath" type="ilon:E_Path" />
+                <element minOccurs="0" name="ActiveDest" type="ilon:UFPTalarmNotifier_CfgAlarmDestination" />
+                <element minOccurs="0" name="PassiveDest" type="ilon:UFPTalarmNotifier_CfgAlarmDestination" />
+              </sequence>
+            </complexType>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="UFPTalarmNotifier_Input_DpRef">
+    <complexContent mixed="false">
+      <extension base="ilon:E_DpRef">
+        <sequence>
+          <element name="AlarmFlags">
+            <complexType>
+              <sequence>
+                <element name="UCPTlogEnable" type="ilon:E_Flag" />
+                <element name="UCPTinvisible" type="ilon:E_Flag" />
+                <element name="UCPTclearRequired" type="ilon:E_Flag" />
+                <element name="UCPTackRequired" type="ilon:E_Flag" />
+                <element name="UCPTdisabled" type="ilon:E_Flag" />
+                <element name="UCPTcovEnabled" type="ilon:E_Flag" />
+              </sequence>
+            </complexType>
+          </element>
+          <element name="UCPTalarmGroup" type="int" />
+          <element name="UCPTalarmPriority2" type="ilon:E_Priority" />
+          <element name="UCPTdescription" type="string" />
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="UFPTalarmNotifier_DpRef">
+    <complexContent mixed="false">
+      <extension base="ilon:E_DpRef">
+        <sequence>
+          <element name="UCPTnickName" type="string" />
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="UFPTalarmNotifier_CfgAlarm">
+    <sequence>
+      <element minOccurs="0" name="UCPTindex" type="int" />
+      <element minOccurs="0" name="UCPTlevel" type="int" />
+      <element minOccurs="0" name="UCPTalarmText" type="string" />
+      <element maxOccurs="unbounded" name="UCPTalarmCondition" type="ilon:E_LonString" />
+    </sequence>
+  </complexType>
+  <complexType name="UFPTalarmNotifier_CfgAlarmDestination">
+    <sequence>
+      <element minOccurs="0" name="UCPTmailPath" type="ilon:E_Path" />
+      <element minOccurs="0" name="UCPTdataPointPath" type="ilon:E_Path" />
+      <element minOccurs="0" name="UCPTpointValue" type="string" />
+      <element name="UCPTminLevel" type="int" />
+      <element name="UCPTmaxLevel" type="int" />
+      <element minOccurs="0" name="UCPTnackDelay" type="int" />
+    </sequence>
+  </complexType>
+  <complexType name="UFPTalarmNotifier_Data">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				Generalized data type of the 'UFPTalarmNotifier'.
+					Example:  xSelect="//Item[@xsi:type="UFPTalarmNotifier_Data"][UCPTpointName="Net/LON/BAS/Alarm Notifier 1/nviInput"]"
+					Example:  xSelect="//Item[@xsi:type="UFPTalarmNotifier_Data"][UCPTalarmTime>="2007-01-15T15:30:21Z"][position()<=60][UCPTalarmLog="SUMMARY"]"
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:Dp_Data">
+        <sequence>
+          <element name="UCPTalarmNotifierName" type="string" />
+          <element name="UCPTalarmTime" type="dateTime" />
+          <element minOccurs="0" name="UCPTuserName" type="string" />
+          <element minOccurs="0" name="UCPTstatus" type="ilon:E_LonString" />
+          <element minOccurs="0" maxOccurs="1" name="ReadData">
+            <complexType>
+              <sequence>
+                <element name="UCPTalarmText" type="string" />
+                <element name="UCPTalarmPriority2" type="ilon:E_Priority" />
+                <element name="UCPTalarmGroup" type="int" />
+                <element name="UCPTalarmType" type="ilon:E_LonString" />
+              </sequence>
+            </complexType>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="UFPTalarmNotifier_Meta_Data">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				Generalized meta-data type of the 'UFPTalarmNotifier'. It'll only be responded (never used for a request).
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:Fb_Data">
+        <sequence>
+          <element name="UCPTalarmLog" type="ilon:E_LonString" />
+          <element minOccurs="0" name="UCPTstart" type="dateTime" />
+          <element minOccurs="0" name="UCPTstop" type="dateTime" />
+          <element name="UCPTmodificationNumber" type="int" />
+          <element name="UCPTlogLevel" type="float" />
+          <element name="UCPTtotalCount" type="int" />
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="UFPTalarmNotifier_ClearResponse">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				Response-Item from the 'Clear' operation.
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:UFPTalarmNotifier_Meta_Data" />
+    </complexContent>
+  </complexType>
+  <complexType name="UFPTcalendar_Cfg">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				Generalized configuration type of the 'UFPTcalendar'.
+					Example:  xSelect="//Item[@xsi:type="UFPTcalendar_Cfg"]"
+					Example:  xSelect="//Item[@xsi:type="UFPTcalendar_Cfg"][starts-with(UCPTname,'Net/LON/BAS/')]"
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:Fb_Cfg">
+        <sequence>
+          <element name="ScheduleEffectivePeriod" type="ilon:UFPTscheduler_CfgEffectivePeriod" />
+          <element minOccurs="0" maxOccurs="unbounded" name="Exception">
+            <complexType>
+              <sequence>
+                <element minOccurs="0" name="UCPTindex" type="int" />
+                <element name="UCPTexceptionName" type="string" />
+                <element minOccurs="0" name="UCPTaliasName" type="string" />
+                <element minOccurs="0" name="UCPTtemporary" type="ilon:E_Flag" />
+                <element minOccurs="0" maxOccurs="unbounded" name="Schedule">
+                  <complexType>
+                    <sequence>
+                      <element name="StartDate" type="ilon:UFPTcalendar_CfgESDate" />
+                      <element name="EndDate" type="ilon:UFPTcalendar_CfgESDate" />
+                      <element name="UCPTschedDay" type="ilon:E_LonString" />
+                      <element name="UCPTschedMonth" type="ilon:E_LonString" />
+                    </sequence>
+                  </complexType>
+                </element>
+                <element minOccurs="0" name="UCPTmaxClient" type="int" />
+                <element minOccurs="0" maxOccurs="unbounded" name="Client">
+                  <complexType>
+                    <sequence>
+                      <element name="UCPTname" type="string" />
+                      <element name="UCPTservicePath" type="ilon:E_Path" />
+                    </sequence>
+                  </complexType>
+                </element>
+              </sequence>
+            </complexType>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="UFPTcalendar_CfgESDate">
+    <sequence>
+      <element name="UCPTdate" type="date" />
+      <element minOccurs="0" name="UCPTyearMask" type="ilon:E_LonString" />
+      <element minOccurs="0" name="UCPTmonthMask" type="ilon:E_LonString" />
+      <element minOccurs="0" name="UCPTdayMask" type="ilon:E_LonString" />
+    </sequence>
+  </complexType>
+  <complexType name="UFPTcalendar_Data">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				Generalized data type of the 'UFPTcalendar'.
+					Example:  xSelect="//Item[@xsi:type="UFPTcalendar_Data"][UCPTlastUpdate>="2007-01-15T15:30:21Z" and UCPTlastUpdate<"2007-02-11T15:30:21Z"][UCPTexceptionName="Holiday"][position()<500]"
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:Fb_Data">
+        <sequence>
+          <element minOccurs="0" name="UCPTstart" type="dateTime" />
+          <element minOccurs="0" name="UCPTstop" type="dateTime" />
+          <element minOccurs="0" maxOccurs="unbounded" name="UCPTexceptionName" type="string" />
+          <element minOccurs="0" maxOccurs="unbounded" name="DateEvent" type="ilon:E_LonString" />
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="UFPTdataLogger_Cfg">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				Generalized configuration type of the 'UFPTdataLogger'.
+					Example:  xSelect="//Item[@xsi:type="UFPTdataLogger_Cfg"]"
+					Example:  xSelect="//Item[@xsi:type="UFPTdataLogger_Cfg"][starts-with(UCPTname,'Net/LON/BAS/')]"
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:Fb_Cfg">
+        <sequence>
+          <element name="UCPTlogType" type="ilon:E_LonString" />
+          <element name="UCPTlogSize" type="float" />
+          <element name="UCPTlogFormat" type="ilon:E_LonString" />
+          <element name="UCPTlogLevelAlarm" type="float" />
+          <element name="UCPTlogFileName" type="string" />
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="UFPTdataLogger_DpRef">
+    <complexContent mixed="false">
+      <extension base="ilon:E_DpRef">
+        <sequence>
+          <element name="UCPTlogMinDeltaTime" type="double" />
+          <element minOccurs="0" name="UCPTlogMinDeltaValue" type="ilon:E_LonString" />
+          <element name="UCPTpollRate" type="double" />
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="UFPTdataLogger_Data">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				Generalized data type of the 'UFPTdataLogger'.
+					Example:   xSelect="//Item[@xsi:type="UFPTdataLogger_Data"][UCPTlastUpdate>="2007-01-15T15:30:21Z"][position()<50]"
+					Example:   xSelect="//Item[@xsi:type="UFPTdataLogger_Data"][UCPTpointName="Net/LON/BAS/Data Logger 1/nviInput"][UCPTlastUpdate>="2007-01-15T15:30:21Z"][position()<50]"
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:Dp_Data" />
+    </complexContent>
+  </complexType>
+  <complexType name="UFPTdataLogger_Meta_Data">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				Gneralized meta-data type of the 'UFPTdataLogger'. It'll only be responded (never used for a request).
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:Fb_Data">
+        <sequence>
+          <element minOccurs="0" name="UCPTstart" type="dateTime" />
+          <element minOccurs="0" name="UCPTstop" type="dateTime" />
+          <element name="UCPTmodificationNumber" type="int" />
+          <element name="UCPTlogLevel" type="float" />
+          <element name="UCPTtotalCount" type="int" />
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="UFPTdataLogger_ClearResponse">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				Response-Item from the 'Clear' operation
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:UFPTdataLogger_Meta_Data" />
+    </complexContent>
+  </complexType>
+  <complexType name="UFPTdigitalInput_Cfg">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				Generalized configuration type of the 'UFPTdigitalInput'.
+					Example:  xSelect="//Item[@xsi:type="UFPTdigitalInput_Cfg"]"
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:Fb_Cfg" />
+    </complexContent>
+  </complexType>
+  <complexType name="UFPTdigitalOutput_Cfg">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				Generalized configuration type of the 'UFPTdigitalOutput'.
+					Example:  xSelect="//Item[@xsi:type="UFPTdigitalOutput_Cfg"]"
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:Fb_Cfg" />
+    </complexContent>
+  </complexType>
+  <complexType name="UFPTnodeObject_Cfg">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				Generalized configuration type of the 'UFPTnodeObject'.
+					Example:  xSelect="//Item[@xsi:type="UFPTnodeObject_Cfg"]"
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:Fb_Cfg" />
+    </complexContent>
+  </complexType>
+  <complexType name="UFPTpulseCounter_Cfg">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				Generalized configuration type of the 'UFPTpulseCounter'.
+					Example:  xSelect="//Item[@xsi:type="UFPTpulseCounter_Cfg"]"
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:Fb_Cfg" />
+    </complexContent>
+  </complexType>
+  <complexType name="UFPTrealTimeClock_Cfg">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				Generalized configuration type of the 'UFPTrealTimeClock'.
+					Example:  xSelect="//Item[@xsi:type="UFPTrealTimeClock_Cfg"]"
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:Fb_Cfg">
+        <sequence>
+          <element name="UCPTdegLongitude" type="double" />
+          <element name="UCPTdegLatitude" type="double" />
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="UFPTrealTimeClock_Data">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				Generalized data type of the 'UFPTrealTimeClock'.
+					Example:  xSelect="//Item[@xsi:type="UFPTrealTimeClock_Data"][UCPTlastUpdate>="2007-01-15T15:30:21Z" and UCPTlastUpdate<"2007-02-11T15:30:21Z"][position()<500]"
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:Fb_Data">
+        <sequence>
+          <element minOccurs="0" name="UCPTstart" type="dateTime" />
+          <element minOccurs="0" name="UCPTstop" type="dateTime" />
+          <element minOccurs="0" maxOccurs="unbounded" name="DataPoint" type="ilon:UFPTrealTimeClock_Data_DpRef" />
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="UFPTrealTimeClock_Data_DpRef">
+    <complexContent mixed="false">
+      <extension base="ilon:E_DpRef">
+        <sequence>
+          <element maxOccurs="unbounded" name="Value" type="dateTime" />
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="UFPTscheduler_Cfg">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				Generalized configuration type of the 'UFPTscheduler'.
+					Example:  xSelect="//Item[@xsi:type="UFPTscheduler_Cfg"]"
+					Example:  xSelect="//Item[@xsi:type="UFPTscheduler_Cfg"][starts-with(UCPTname,'Net/LON/BAS/')]"
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:Fb_Cfg">
+        <sequence>
+          <element name="ScheduleEffectivePeriod" type="ilon:UFPTscheduler_CfgEffectivePeriod" />
+          <element minOccurs="0" name="UCPTsuppressEventRecovery" type="ilon:E_Flag" />
+          <element minOccurs="0" maxOccurs="unbounded" name="DayBased">
+            <complexType>
+              <sequence>
+                <element minOccurs="0" name="UCPTindex" type="int" />
+                <element minOccurs="0" name="UCPTdescription" type="string" />
+                <element name="UCPTpriority" type="ilon:E_Priority" />
+                <element minOccurs="0" maxOccurs="unbounded" name="Event" type="ilon:UFPTscheduler_CfgEvent" />
+                <element name="Weekdays">
+                  <complexType>
+                    <sequence>
+                      <element name="UCPTsunday" type="ilon:E_Flag" />
+                      <element name="UCPTmonday" type="ilon:E_Flag" />
+                      <element name="UCPTtuesday" type="ilon:E_Flag" />
+                      <element name="UCPTwednesday" type="ilon:E_Flag" />
+                      <element name="UCPTthursday" type="ilon:E_Flag" />
+                      <element name="UCPTfriday" type="ilon:E_Flag" />
+                      <element name="UCPTsaturday" type="ilon:E_Flag" />
+                    </sequence>
+                  </complexType>
+                </element>
+              </sequence>
+            </complexType>
+          </element>
+          <element minOccurs="0" maxOccurs="unbounded" name="DateBased">
+            <complexType>
+              <sequence>
+                <element minOccurs="0" name="UCPTindex" type="int" />
+                <element minOccurs="0" name="UCPTdescription" type="string" />
+                <element name="UCPTpriority" type="ilon:E_Priority" />
+                <element minOccurs="0" maxOccurs="unbounded" name="Event" type="ilon:UFPTscheduler_CfgEvent" />
+                <element minOccurs="0" maxOccurs="unbounded" name="Exception">
+                  <complexType>
+                    <sequence>
+                      <element minOccurs="0" name="UCPTindex" type="int" />
+                      <element name="UCPTexceptionName" type="string" />
+                    </sequence>
+                  </complexType>
+                </element>
+              </sequence>
+            </complexType>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="UFPTscheduler_DpRef">
+    <complexContent mixed="false">
+      <extension base="ilon:E_DpRef">
+        <sequence>
+          <element minOccurs="0" name="SCPTdelayTime" type="double" />
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="UFPTscheduler_BaseTime_DpRef">
+    <complexContent mixed="false">
+      <extension base="ilon:E_DpRef">
+        <sequence>
+          <element name="UCPTnickName" type="string" />
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="UFPTscheduler_CfgEffectivePeriod">
+    <sequence>
+      <element minOccurs="0" name="StartDate" type="date" />
+      <element minOccurs="0" name="EndDate" type="date" />
+    </sequence>
+  </complexType>
+  <complexType name="UFPTscheduler_CfgEvent">
+    <sequence>
+      <element minOccurs="0" name="UCPTindex" type="int" />
+      <element name="UCPTtime" type="time" />
+      <element minOccurs="0" maxOccurs="unbounded" name="UCPTvalue" type="ilon:E_LonString" />
+      <element minOccurs="0" name="UCPTtimeDirection" type="ilon:E_LonString" />
+      <element minOccurs="0" name="UCPTbaseTimePath" type="ilon:E_Path" />
+      <element minOccurs="0" name="UCPTeventType" type="ilon:E_LonString" />
+    </sequence>
+  </complexType>
+  <complexType name="UFPTscheduler_Data">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				Generalized data type of the 'UFPTscheduler'.
+					Example:  xSelect="//Item[@xsi:type="UFPTscheduler_Data"][UCPTname="Net/LON/BAS/Scheduler 1"][UCPTeventFilter="EF_SCHEDULE"][position()<10]"
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:Dp_Data">
+        <sequence>
+          <element name="UCPTeventType" type="ilon:E_LonString" />
+          <element name="UCPTeventSource" type="string" />
+          <element minOccurs="0" name="UCPTexceptionName" type="string" />
+          <element name="UCPTeventInfo" type="ilon:E_LonString" />
+          <element minOccurs="0" name="UCPTbaseTime" type="time" />
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="UFPTscheduler_Calendar_Meta_Data">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				Generalized meta-data type of the 'UFPTscheduler'. It'll only be requested (never used for a response). The request can contain one 'UFPTscheduler_Calendar_Meta_Data'.
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:UFPTcalendar_Data" />
+    </complexContent>
+  </complexType>
+  <complexType name="UFPTscheduler_Calendar_Request_Data">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				Generalized request for meta-data type of the 'UFPTscheduler'. It'll only be requested (never used for a response). The request can contain one 'UFPTscheduler_Calendar_Request_Data'.
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:Item_Data" />
+    </complexContent>
+  </complexType>
+  <complexType name="UFPTscheduler_RealTimeClock_Meta_Data">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				Generalized meta-data type of the 'UFPTscheduler'. It'll only be requested (never used for a response). The request can contain one 'UFPTscheduler_RealTimeClock_Meta_Data'.
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:UFPTrealTimeClock_Data" />
+    </complexContent>
+  </complexType>
+  <complexType name="UFPTscheduler_RealTimeClock_Request_Data">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				Generalized request for meta-data type of the 'UFPTscheduler'. It'll only be requested (never used for a response). The request can contain one 'UFPTscheduler_RealTimeClock_Request_Data'.
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:Item_Data" />
+    </complexContent>
+  </complexType>
+  <complexType name="UFPTscheduler_Meta_Data">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				Generalized meta-data type of the 'UFPTscheduler'. It'll only be responsed (never used for a request).
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:Fb_Data">
+        <sequence>
+          <element name="UCPTstart" type="dateTime" />
+          <element name="UCPTstop" type="dateTime" />
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="UFPTscheduler_ListSchedules_Invoke">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				Request for list of all schedules which are active on specified day independent of their priority.
+				The day is specified by UCPTlastUpdate in xSelect.
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:Item_Data" />
+    </complexContent>
+  </complexType>
+  <complexType name="UFPTscheduler_ListSchedules_InvokeResponse">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				List of all schedules which are active on specified day independent of their priority.
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:Fb_Data">
+        <sequence>
+          <element name="UCPTstart" type="dateTime" />
+          <element name="UCPTstop" type="dateTime" />
+          <element minOccurs="0" maxOccurs="unbounded" name="UCPTeventSource" type="string" />
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="UFPTtypeTranslator_Cfg">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				Generalized configuration type of the 'UFPTtypeTranslator'.
+					Example:  xSelect="//Item[@xsi:type="UFPTtypeTranslator_Cfg"]"
+					Example:  xSelect="//Item[@xsi:type="UFPTtypeTranslator_Cfg"][starts-with(UCPTname,'Net/LON/BAS/')]"
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:Fb_Cfg">
+        <sequence>
+          <element minOccurs="0" name="UCPTtranslatorRule" type="string" />
+          <element minOccurs="0" name="SCPTdelayTime" type="double" />
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="UFPTtypeTranslator_DpRef">
+    <complexContent mixed="false">
+      <extension base="ilon:E_DpRef">
+        <sequence>
+          <element name="UCPTnickName" type="string" />
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="UFPTtypeTranslator_Rule_Cfg">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				Generalized configuration type of the 'UFPTtypeTranslator_Rule'.
+					Example:  xSelect="//Item[@xsi:type="UFPTtypeTranslator_Rule_Cfg"]"
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:Item_Cfg">
+        <sequence>
+          <element minOccurs="0" maxOccurs="unbounded" name="DataPointFormat">
+            <complexType>
+              <sequence>
+                <element name="UCPTnickName" type="string" />
+                <element name="UCPTformatDescription" type="string" />
+              </sequence>
+            </complexType>
+          </element>
+          <element minOccurs="0" maxOccurs="unbounded" name="Case">
+            <complexType>
+              <sequence>
+                <element minOccurs="0" name="UCPTindex" type="int" />
+                <element minOccurs="0" name="UCPTinputPath" type="ilon:E_Path" />
+                <element minOccurs="0" name="UCPTinputFieldName" type="string" />
+                <element name="UCPTcompFunction" type="ilon:E_LonString" />
+                <element minOccurs="0" name="UCPTcompValue" type="ilon:E_LonString" />
+                <element minOccurs="0" maxOccurs="unbounded" name="Rule">
+                  <complexType>
+                    <sequence>
+                      <element minOccurs="0" name="UCPTindex" type="int" />
+                      <element name="UCPTinputPath" type="ilon:E_Path" />
+                      <element minOccurs="0" name="UCPTinputFieldName" type="string" />
+                      <element name="UCPToutputPath" type="ilon:E_Path" />
+                      <element minOccurs="0" name="UCPToutputFieldName" type="string" />
+                      <element name="UCPTcompFunction" type="ilon:E_LonString" />
+                      <element minOccurs="0" name="UCPTcompValue" type="ilon:E_LonString" />
+                      <element minOccurs="0" name="UCPTmultiplier" type="float" />
+                      <element minOccurs="0" name="UCPTconstant" type="ilon:E_LonString" />
+                      <element minOccurs="0" name="UCPTmultiplierConstant" type="float" />
+                    </sequence>
+                  </complexType>
+                </element>
+              </sequence>
+            </complexType>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="FileSystem_Cfg">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				Service configuration type of the service 'FileSystem'.
+					Example:  xSelect="//Item[@xsi:type="FileSystem_Cfg"]"
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:Item_Cfg" />
+    </complexContent>
+  </complexType>
+  <complexType name="FileSystem_Data">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				Service data type of the service 'FileSystem'.
+					Example:  xSelect="//Item[@xsi:type="FileSystem_Data"][UCPTname="/root/alarmLog/histlog0.csv"][UCPTfileFormat="text"]"
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:Item_Data">
+        <sequence>
+          <element name="UCPTfileFormat" type="ilon:E_LonString" />
+          <element minOccurs="0" name="UCPTfileSize" type="int" />
+          <element name="Value" type="string" />
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="TemplateManager_Surrogate_Cfg">
+    <annotation>
+      <documentation xml:lang="en-us">
+				This type is a common surrogate for any Item with the 'Item_Cfg'-base.
+				The embedded item will be stored as a template in the 'TemplateManager'.
+				The storage path (directory + filename) is set in the 'UCPTname'.
+			<![CDATA[
+				Service configuration common type of the service 'TemplateManager'.
+					Example:  xSelect="//Item[@xsi:type="TemplateManager_Surrogate_Cfg"][UCPTname="/root/config/software/templateManager/UFPTalarmGenerator.xml"]"
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:Item_Cfg">
+        <sequence>
+          <element minOccurs="0" name="EmbeddedItemColl" type="ilon:Item_CfgColl" />
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="TemplateManager_Cfg">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				Service configuration native type of the service 'TemplateManager'.
+					Example:  xSelect="//Item[@xsi:type="TemplateManager_Cfg"][UCPTfileType="TEMPLATE"]"
+					Example:  xSelect="//Item[@xsi:type="TemplateManager_Cfg"][UCPTname="/root/config/software/templateManager/UFPTalarmGenerator.xml"]"
+					Example:  xSelect="//Item[@xsi:type="TemplateManager_Cfg"][UCPTfileType="TEMPLATE"][UCPTitemType="DP_Cfg"]"
+					Example:  xSelect="//Item[@xsi:type="TemplateManager_Cfg"][UCPTprogramId="900001012881040C"][UCPTfileType="XIF"]"
+					Example:  xSelect="//Item[@xsi:type="TemplateManager_Cfg"][UCPTfileType="XIF"]"
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:Item_Cfg" />
+    </complexContent>
+  </complexType>
+  <complexType name="TemplateManager_FILE_Cfg">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				Service configuration type of the service 'TemplateManager'.
+					Example:  xSelect="//Item[@xsi:type="TemplateManager_FILE_Cfg"][UCPTprogramId="900001012881040C"]"
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:TemplateManager_Cfg">
+        <sequence>
+          <element minOccurs="0" name="UCPTresourceFile" type="string" />
+          <element minOccurs="0" name="UCPTdataVersion" type="string" />
+          <element minOccurs="0" name="UCPTformatVersion" type="string" />
+          <element minOccurs="0" name="UCPTcreator" type="string" />
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="TemplateManager_NVT_Cfg">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+					Service configuration type of the service 'TemplateManager'.
+						Example:  xSelect="//Item[@xsi:type="TemplateManager_NVT_Cfg"][UCPTprogramId="900001012881040C"][UCPTlength="2"][UCPTlanguage="enu"]"
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:TemplateManager_Cfg">
+        <sequence>
+          <element minOccurs="0" name="UCPTshortDescription" type="string" />
+          <element minOccurs="0" maxOccurs="unbounded" name="UCPTunit" type="ilon:E_Unit" />
+          <element minOccurs="0" name="UCPTmemberName" type="string" />
+          <element minOccurs="0" name="UCPTreference" type="string" />
+          <element minOccurs="0" name="enum_" type="ilon:TemplateManager_CfgEnum" />
+          <element minOccurs="0" name="float_" type="ilon:TemplateManager_CfgFloat" />
+          <element minOccurs="0" name="struct_" type="ilon:TemplateManager_CfgStruct" />
+          <element minOccurs="0" name="union_" type="ilon:TemplateManager_CfgStruct" />
+          <element minOccurs="0" name="scalar_" type="ilon:TemplateManager_CfgScalar" />
+          <element minOccurs="0" name="bitfield_" type="ilon:TemplateManager_CfgBitfield" />
+          <element name="UCPTlength" type="int" />
+          <element maxOccurs="unbounded" name="FormatString" type="ilon:TemplateManager_CfgFormatString" />
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="TemplateManager_CPT_Cfg">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+					Service configuration type of the service 'TemplateManager'.
+						Example:  xSelect="//Item[@xsi:type="TemplateManager_CPT_Cfg"][UCPTprogramId="900001012881040C"][UCPTlength="2"][UCPTlanguage="enu"]"
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:TemplateManager_Cfg">
+        <sequence>
+          <element minOccurs="0" name="UCPTshortDescription" type="string" />
+          <element minOccurs="0" maxOccurs="unbounded" name="UCPTunit" type="ilon:E_Unit" />
+          <element minOccurs="0" name="UCPTmemberName" type="string" />
+          <element minOccurs="0" name="UCPTreference" type="string" />
+          <element minOccurs="0" name="enum_" type="ilon:TemplateManager_CfgEnum" />
+          <element minOccurs="0" name="float_" type="ilon:TemplateManager_CfgFloat" />
+          <element minOccurs="0" name="struct_" type="ilon:TemplateManager_CfgStruct" />
+          <element minOccurs="0" name="union_" type="ilon:TemplateManager_CfgStruct" />
+          <element minOccurs="0" name="scalar_" type="ilon:TemplateManager_CfgScalar" />
+          <element minOccurs="0" name="bitfield_" type="ilon:TemplateManager_CfgBitfield" />
+          <element name="UCPTlength" type="int" />
+          <element minOccurs="0" name="UCPTinheriting" type="ilon:E_Flag" />
+          <element minOccurs="0" name="UCPTminValue" type="ilon:E_LonString" />
+          <element minOccurs="0" name="UCPTmaxValue" type="ilon:E_LonString" />
+          <element minOccurs="0" name="UCPTdefaultValue" type="ilon:E_LonString" />
+          <element minOccurs="0" maxOccurs="unbounded" name="FormatString" type="ilon:TemplateManager_CfgFormatString" />
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="TemplateManager_ENUM_Cfg">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+					Service configuration type of the service 'TemplateManager'.
+						Example:  xSelect="//Item[@xsi:type="TemplateManager_ENUM_Cfg"][UCPTprogramId="900001012881040C"][UCPTlanguage="enu"]"
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:TemplateManager_Cfg">
+        <sequence>
+          <element minOccurs="0" maxOccurs="unbounded" name="Member">
+            <complexType>
+              <sequence>
+                <element minOccurs="0" name="UCPTdescription" type="string" />
+                <element name="UCPTmemberName" type="string" />
+                <element name="UCPTvalue" type="int" />
+              </sequence>
+            </complexType>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="TemplateManager_FPT_Cfg">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+					Service configuration type of the service 'TemplateManager'.
+						Example:  xSelect="//Item[@xsi:type="TemplateManager_FPT_Cfg"][UCPTprogramId="900001012881040C"][UCPTlanguage="enu"]"
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:TemplateManager_Cfg">
+        <sequence>
+          <element minOccurs="0" name="UCPTshortDescription" type="string" />
+          <element name="UCPTfptKey" type="string" />
+          <element name="UCPTinheriting" type="ilon:E_Flag" />
+          <element minOccurs="0" name="UCPTreference" type="string" />
+          <element name="UCPTprincipalName" type="string" />
+          <element minOccurs="0" maxOccurs="unbounded" name="NV">
+            <complexType>
+              <sequence>
+                <element name="UCPTindex" type="int" />
+                <element name="UCPTname" type="string" />
+                <element minOccurs="0" name="UCPTdescription" type="string" />
+                <element name="UCPTmemberIndex" type="int" />
+                <element name="UCPTmandatory" type="ilon:E_Flag" />
+                <element minOccurs="0" name="UCPTshortDescription" type="string" />
+                <element minOccurs="0" name="UCPTreference" type="string" />
+                <element minOccurs="0" name="UCPTminValue" type="ilon:E_LonString" />
+                <element minOccurs="0" name="UCPTmaxValue" type="ilon:E_LonString" />
+                <element name="UCPTdirection" type="ilon:E_LonString" />
+                <element name="UCPTserviceType" type="ilon:E_LonString" />
+              </sequence>
+            </complexType>
+          </element>
+          <element minOccurs="0" maxOccurs="unbounded" name="CP">
+            <complexType>
+              <sequence>
+                <element name="UCPTindex" type="int" />
+                <element name="UCPTname" type="string" />
+                <element minOccurs="0" name="UCPTdescription" type="string" />
+                <element name="UCPTmemberIndex" type="int" />
+                <element name="UCPTmandatory" type="ilon:E_Flag" />
+                <element minOccurs="0" name="UCPTshortDescription" type="string" />
+                <element minOccurs="0" name="UCPTreference" type="string" />
+                <element minOccurs="0" name="UCPTminValue" type="ilon:E_LonString" />
+                <element minOccurs="0" name="UCPTmaxValue" type="ilon:E_LonString" />
+                <element minOccurs="0" name="UCPTdefaultValue" type="ilon:E_LonString" />
+                <element minOccurs="0" name="UCPTappliesTo" type="string" />
+                <element minOccurs="0" name="UCPTreadOnlyFlag" type="ilon:E_Flag" />
+                <element minOccurs="0" name="UCPTdeviceFlag" type="ilon:E_Flag" />
+                <element minOccurs="0" name="UCPTmanufactureFlag" type="ilon:E_Flag" />
+                <element minOccurs="0" name="UCPTobjDisableFlag" type="ilon:E_Flag" />
+                <element minOccurs="0" name="UCPTofflineFlag" type="ilon:E_Flag" />
+                <element minOccurs="0" name="UCPTresetFlag" type="ilon:E_Flag" />
+                <element minOccurs="0" name="UCPTminArraySize" type="int" />
+                <element minOccurs="0" name="UCPTmaxArraySize" type="int" />
+              </sequence>
+            </complexType>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="TemplateManager_CfgEnum">
+    <sequence>
+      <element name="UCPTindex" type="int" />
+      <element name="UCPTname" type="string" />
+      <element name="UCPTminValue" type="ilon:E_LonString" />
+      <element name="UCPTmaxValue" type="ilon:E_LonString" />
+      <element name="UCPTscope" type="int" />
+      <element minOccurs="0" name="UCPTreference" type="string" />
+    </sequence>
+  </complexType>
+  <complexType name="TemplateManager_CfgFloat">
+    <sequence>
+      <element name="UCPTbaseType" type="ilon:E_LonString" />
+      <element name="UCPTminValue" type="ilon:E_LonString" />
+      <element name="UCPTmaxValue" type="ilon:E_LonString" />
+    </sequence>
+  </complexType>
+  <complexType name="TemplateManager_CfgScalar">
+    <sequence>
+      <element name="UCPTbaseType" type="ilon:E_LonString" />
+      <element name="UCPTminValue" type="ilon:E_LonString" />
+      <element name="UCPTmaxValue" type="ilon:E_LonString" />
+      <element minOccurs="0" name="UCPTinvalidValue" type="ilon:E_LonString" />
+      <element name="Scale">
+        <complexType>
+          <sequence>
+            <element name="UCPTmultiplier" type="float" />
+            <element name="UCPTexponent" type="int" />
+            <element name="UCPToffset" type="int" />
+            <element name="UCPTresolution" type="double" />
+          </sequence>
+        </complexType>
+      </element>
+    </sequence>
+  </complexType>
+  <complexType name="TemplateManager_CfgBitfield">
+    <sequence>
+      <element name="UCPTsignedFlag" type="ilon:E_Flag" />
+      <element name="UCPTwidth" type="int" />
+      <element name="UCPToffset" type="int" />
+      <element name="UCPTminValue" type="ilon:E_LonString" />
+      <element name="UCPTmaxValue" type="ilon:E_LonString" />
+      <element name="Scale">
+        <complexType>
+          <sequence>
+            <element name="UCPTmultiplier" type="float" />
+            <element name="UCPTexponent" type="int" />
+            <element name="UCPToffset" type="int" />
+            <element name="UCPTresolution" type="double" />
+          </sequence>
+        </complexType>
+      </element>
+    </sequence>
+  </complexType>
+  <complexType name="TemplateManager_CfgStruct">
+    <sequence>
+      <element minOccurs="0" maxOccurs="unbounded" name="Member">
+        <complexType>
+          <sequence>
+            <element minOccurs="0" name="UCPTdescription" type="string" />
+            <element minOccurs="0" name="UCPTshortDescription" type="string" />
+            <element minOccurs="0" maxOccurs="unbounded" name="UCPTunit" type="ilon:E_Unit" />
+            <element name="UCPTmemberName" type="string" />
+            <element minOccurs="0" name="UCPTreference" type="string" />
+            <element minOccurs="0" name="enum_" type="ilon:TemplateManager_CfgEnum" />
+            <element minOccurs="0" name="float_" type="ilon:TemplateManager_CfgFloat" />
+            <element minOccurs="0" name="struct_" type="ilon:TemplateManager_CfgStruct" />
+            <element minOccurs="0" name="union_" type="ilon:TemplateManager_CfgStruct" />
+            <element minOccurs="0" name="scalar_" type="ilon:TemplateManager_CfgScalar" />
+            <element minOccurs="0" name="bitfield_" type="ilon:TemplateManager_CfgBitfield" />
+          </sequence>
+        </complexType>
+      </element>
+    </sequence>
+  </complexType>
+  <complexType name="TemplateManager_CfgFormatString">
+    <sequence>
+      <element name="UCPTformatDescription" type="string" />
+      <element name="UCPTformatSpecifier" type="string" />
+    </sequence>
+  </complexType>
+  <complexType name="TemplateManager_Data_Invoke">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				Writes all given fields to an instance of a format which is given in the name.
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:Item_Data">
+        <sequence>
+          <element minOccurs="0" maxOccurs="unbounded" name="UCPTvalue" type="ilon:E_LonString" />
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="TemplateManager_Data_InvokeResponse">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+			  Response to a TemplateManager_Data_Invoke which gives back all fields of a structure
+			  and the values given in the request.
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:TemplateManager_Data_Invoke" />
+    </complexContent>
+  </complexType>
+  <complexType name="Dp_Ref">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				Service configuration type of the service 'WebBinder'.
+					Example:  xSelect="//Item[@xsi:type="Dp_Ref"]"
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:Item_Cfg">
+        <sequence>
+          <element minOccurs="1" maxOccurs="unbounded" name="DataPoint">
+            <complexType>
+              <complexContent mixed="false">
+                <extension base="ilon:E_DpRef">
+                  <sequence>
+                    <element name="UCPTserviceType" type="ilon:E_LonString" />
+                    <element name="UCPTservicePath" type="ilon:E_Path" />
+                    <element minOccurs="0" name="UCPTpriority" type="ilon:E_Priority" />
+                    <element minOccurs="0" name="UCPTpropagate" type="ilon:E_Flag" />
+                    <element minOccurs="0" name="UCPTattachmentFileName" type="string" />
+                  </sequence>
+                </extension>
+              </complexContent>
+            </complexType>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="LON_Network_Cfg">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				Specialized network configuration type.
+					Example:  xSelect="//Item[@xsi:type="LON_Network_Cfg"]".
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:Item_Cfg">
+        <sequence>
+          <element minOccurs="0" name="UCPThandle" type="ilon:E_UniqueKey" />
+          <element minOccurs="0" name="LnsDatabase">
+            <complexType>
+              <sequence>
+                <element name="UCPTname" type="string" />
+                <element name="UCPTservicePath" type="ilon:E_Path" />
+              </sequence>
+            </complexType>
+          </element>
+          <element minOccurs="0" name="UCPTlnsSync" type="ilon:E_LonString" />
+          <element minOccurs="0" name="UCPTmgmtMode" type="ilon:E_LonString" />
+          <element minOccurs="0" name="UCPTlnsNetworkInterface" type="string" />
+          <element minOccurs="1" maxOccurs="2" name="Domain">
+            <complexType>
+              <sequence>
+                <element name="UCPTdomainIndex" type="int" />
+                <element name="UCPTdomainLength" type="int" />
+                <element name="UCPTdomainKey" type="hexBinary" />
+              </sequence>
+            </complexType>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <simpleType name="LON_Network_eCommand">
+    <restriction base="string">
+      <enumeration value="Syncronize" />
+      <enumeration value="ListLnsNetworkInterfaces" />
+    </restriction>
+  </simpleType>
+  <complexType name="LON_Channel_Cfg">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				Specialized channel configuration type.
+					Example:  xSelect="//Item[@xsi:type="LON_Channel_Cfg"]"
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:Item_Cfg">
+        <sequence>
+          <element minOccurs="0" name="UCPThandle" type="ilon:E_UniqueKey" />
+          <element name="UCPTchannelType" type="ilon:E_LonString" />
+          <element name="UCPTtransceiverId" type="ilon:E_LonString" />
+          <element minOccurs="0" name="UCPTtransmitTimer" type="ilon:E_LonString" />
+          <element minOccurs="0" name="UCPTretryCount" type="int" />
+          <element minOccurs="0" name="UCPTmaxPriority" type="int" />
+          <element minOccurs="0" name="UCPTdelay" type="double" />
+          <element name="UCPTchannelMode" type="ilon:E_LonString" />
+          <element minOccurs="0" name="UCPTminOfflineTime" type="ilon:E_LonString" />
+          <element minOccurs="0" name="UCPTofflineIhbD" type="double" />
+          <element minOccurs="0" name="UCPTdynamic" type="ilon:E_LonString" />
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="LON_Device_Cfg">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				ATTENTION: use the 'LON_Device_Command_Invoke' for LON_Device_eCommand:
+				'QueryStatus', 'ClearStatus', 'RepeatingData', 'PowerlineData', 'ProxyData'
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:Item_Cfg">
+        <sequence>
+          <element minOccurs="0" name="UCPThandle" type="ilon:E_UniqueKey" />
+          <element minOccurs="0" name="UCPTuniqueId" type="hexBinary" />
+          <element minOccurs="0" name="UCPTreplacementId" type="hexBinary" />
+          <element minOccurs="0" name="UCPTprogramId" type="hexBinary" />
+          <element minOccurs="0" name="UCPTgeoPosition" type="string" />
+          <element minOccurs="0" name="UCPTlocationId" type="hexBinary" />
+          <element minOccurs="0" name="UCPTmaxDynamicFb" type="int" />
+          <element minOccurs="0" name="UCPTmaxDynamicDp" type="int" />
+          <element minOccurs="0" name="UCPTmaxTxTransactions" type="int" />
+          <element minOccurs="0" name="UCPTmaxTxLifetime" type="int" />
+          <element minOccurs="0" name="UCPTlocal" type="ilon:E_Flag" />
+          <element minOccurs="0" name="UCPTapplicationStatus" type="ilon:E_LonString" />
+          <element minOccurs="0" name="UCPTcommissionStatus" type="ilon:E_LonString" />
+          <element minOccurs="0" name="UCPTurlImage" type="string" />
+          <element minOccurs="0" name="UCPTurlTemplate" type="string" />
+          <element minOccurs="0" name="UCPTdynamic" type="ilon:E_LonString" />
+          <element minOccurs="0" maxOccurs="unbounded" name="UCPTurlCpFile">
+            <complexType>
+              <simpleContent>
+                <extension base="string">
+                  <attribute name="Download" type="boolean" />
+                </extension>
+              </simpleContent>
+            </complexType>
+          </element>
+          <element minOccurs="0" maxOccurs="2" name="Address">
+            <complexType>
+              <sequence>
+                <element minOccurs="0" name="UCPTdomainIndex" type="int" />
+                <element name="UCPTdomainLength" type="int" />
+                <element name="UCPTdomainKey" type="hexBinary" />
+                <element minOccurs="0" name="UCPTsubnet" type="int" />
+                <element minOccurs="0" name="UCPTnodeId" type="int" />
+              </sequence>
+            </complexType>
+          </element>
+          <element minOccurs="0" maxOccurs="unbounded" name="Command">
+            <complexType>
+              <sequence>
+                <element minOccurs="0" name="fault" type="ilon:E_Fault" />
+                <element name="UCPTcommand" type="ilon:LON_Device_eCommand" />
+                <element minOccurs="0" name="UCPTlastUpdate" type="dateTime" />
+                <element minOccurs="0" name="UCPTstatus" type="ilon:E_LonString" />
+              </sequence>
+            </complexType>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <simpleType name="LON_Device_eCommand">
+    <restriction base="string">
+      <enumeration value="Reset" />
+      <enumeration value="ChangeApplicationStatus" />
+      <enumeration value="Wink" />
+      <enumeration value="ChangeCommissionStatus" />
+      <enumeration value="FetchProgId" />
+      <enumeration value="ImageDownload" />
+      <enumeration value="GetTemplate" />
+      <enumeration value="CpFileTransfer" />
+      <enumeration value="QueryStatus" />
+      <enumeration value="ClearStatus" />
+      <enumeration value="RepeatingData" />
+      <enumeration value="PowerlineData" />
+      <enumeration value="SendServicePin" />
+      <enumeration value="ProxyData" />
+      <enumeration value="UpdateCpDefaults" />
+      <enumeration value="FetchNeuronId" />
+    </restriction>
+  </simpleType>
+  <complexType name="LON_Device_NetworkInterface_Cfg">
+    <complexContent mixed="false">
+      <extension base="ilon:LON_Device_Cfg" />
+    </complexContent>
+  </complexType>
+  <complexType name="LON_Device_RNI_Cfg">
+    <complexContent mixed="false">
+      <extension base="ilon:LON_Device_Cfg">
+        <sequence>
+          <element minOccurs="0" name="UCPTport" type="int" />
+          <element minOccurs="0" name="UCPTmaxRxTransactions" type="int" />
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="LON_Device_Router_Cfg">
+    <complexContent mixed="false">
+      <extension base="ilon:LON_Device_Cfg">
+        <sequence>
+          <element minOccurs="0" name="Device" type="string" />
+          <element minOccurs="0" name="UCPTrouterClass" type="ilon:E_LonString" />
+          <element minOccurs="0" name="UCPTauthKey" type="string" />
+          <element minOccurs="0" name="UCPTport" type="int" />
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="LON_Fb_Cfg">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				Specialized functional block configuration type.
+					Example:  xSelect="//Item[@xsi:type="LON_Fb_Cfg"]"
+					Example:  xSelect="//Item[@xsi:type="LON_Fb_Cfg"][starts-with(UCPTname,'Net/LON/BAS/')]"
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:Fb_Cfg">
+        <sequence>
+          <element minOccurs="0" name="UCPTfbIndex" type="ilon:E_UniqueKey" />
+          <element minOccurs="0" name="UCPTfptKey" type="string" />
+          <element minOccurs="0" name="UCPTdynamic" type="ilon:E_LonString" />
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="LON_Dp_Cfg">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				Specialized data point configuration type.
+					Example:  xSelect="//Item[@xsi:type="LON_Dp_Cfg"]"
+					Example:  xSelect="//Item[@xsi:type="LON_Dp_Cfg"][starts-with(UCPTname,'Net/LON/BAS/Alarm Generator 1/')]"
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:Dp_Cfg_Base">
+        <sequence>
+          <element minOccurs="0" name="UCPTnvIndex" type="ilon:E_UniqueKey" />
+          <element minOccurs="0" name="UCPTnvSelector" type="hexBinary" />
+          <element minOccurs="0" name="UCPTdynamic" type="ilon:E_LonString" />
+          <element minOccurs="0" name="UCPTpollRate" type="double" />
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="LON_Cp_File_Cfg">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				Specialized file configuration type.
+					Example:  xSelect="//Item[@xsi:type="LON_Cp_File_Cfg"]"
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:Dp_Cfg_Base">
+        <sequence>
+          <element minOccurs="0" name="UCPThandle" type="ilon:E_UniqueKey" />
+          <element minOccurs="0" name="UCPToffset" type="int" />
+          <element minOccurs="0" name="UCPTfileIndex" type="int" />
+          <element minOccurs="0" name="UCPTreadOnlyFlag" type="ilon:E_Flag" />
+          <element minOccurs="0" name="UCPTdeviceFlag" type="ilon:E_Flag" />
+          <element minOccurs="0" name="UCPTmanufactureFlag" type="ilon:E_Flag" />
+          <element minOccurs="0" name="UCPTobjDisableFlag" type="ilon:E_Flag" />
+          <element minOccurs="0" name="UCPTofflineFlag" type="ilon:E_Flag" />
+          <element minOccurs="0" name="UCPTresetFlag" type="ilon:E_Flag" />
+          <element minOccurs="0" name="UCPTrelation" type="string" />
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="LON_Cp_Dp_Cfg">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				Specialized datapoint configuration type.
+					Example:  xSelect="//Item[@xsi:type="LON_Cp_Dp_Cfg"]"
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:LON_Dp_Cfg">
+        <sequence>
+          <element minOccurs="0" name="UCPTreadOnlyFlag" type="ilon:E_Flag" />
+          <element minOccurs="0" name="UCPTdeviceFlag" type="ilon:E_Flag" />
+          <element minOccurs="0" name="UCPTmanufactureFlag" type="ilon:E_Flag" />
+          <element minOccurs="0" name="UCPTobjDisableFlag" type="ilon:E_Flag" />
+          <element minOccurs="0" name="UCPTofflineFlag" type="ilon:E_Flag" />
+          <element minOccurs="0" name="UCPTresetFlag" type="ilon:E_Flag" />
+          <element minOccurs="0" name="UCPTrelation" type="string" />
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="LON_Network_DeviceCommand_Invoke">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				LON specific network command (called with 'InvokeCmd' operation).
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:Item">
+        <attribute name="Command" type="ilon:LON_Device_eCommand" use="required" />
+        <attribute name="UCPTuniqueId" type="hexBinary" use="required" />
+      </extension>
+    </complexContent>
+  </complexType>
+  <simpleType name="LON_Network_eScanCommand">
+    <restriction base="string">
+      <enumeration value="GetScan" />
+      <enumeration value="SetScan" />
+    </restriction>
+  </simpleType>
+  <simpleType name="LON_Device_IlonNi_eCommand">
+    <restriction base="string">
+      <enumeration value="Scan" />
+      <enumeration value="ScanOnce" />
+    </restriction>
+  </simpleType>
+  <complexType name="LON_Network_ScanCommand_Invoke">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				LON specific network command (called with 'InvokeCmd' operation).
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:Item">
+        <sequence>
+          <element minOccurs="0" maxOccurs="unbounded" name="Command">
+            <complexType>
+              <sequence>
+                <element minOccurs="0" name="fault" type="ilon:E_Fault" />
+                <element name="UCPTcommand" type="ilon:LON_Device_IlonNi_eCommand" />
+                <element minOccurs="0" name="UCPTlastUpdate" type="dateTime" />
+                <element minOccurs="0" name="UCPTstatus" type="ilon:E_LonString" />
+              </sequence>
+            </complexType>
+          </element>
+          <element minOccurs="0" maxOccurs="unbounded" name="UCPTscan" type="ilon:E_LonString" />
+          <element minOccurs="0" name="UCPTunCfgOnly" type="ilon:E_Flag" />
+        </sequence>
+        <attribute name="ScanCommand" type="ilon:LON_Network_eScanCommand" use="required" />
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="LON_Network_Command_Invoke">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				LON specific network command (called with 'InvokeCmd' operation).
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:Item">
+        <attribute name="Command" type="ilon:LON_Network_eCommand" use="required" />
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="LON_Device_Command_Invoke">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+			  LON specific device command (called with 'InvokeCmd' operation).
+				ATTENTION: only allowded are 'QueryStatus', 'ClearStatus', 'RepeatingData', 'PowerlineData', 'ProxyData', 'SendServicePin'
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:Item">
+        <attribute name="Command" type="ilon:LON_Device_eCommand" use="required" />
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="LON_Device_StatusData_InvokeResponse">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+			  Response to LON specific device command 'QueryStatus'.
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:Item_Data">
+        <sequence>
+          <element name="UCPTuniqueId" type="hexBinary" />
+          <element name="UCPTtransmitErrors" type="int" />
+          <element name="UCPTtransactionTimeouts" type="int" />
+          <element name="UCPTrcvTransactionFull" type="int" />
+          <element name="UCPTlostMessages" type="int" />
+          <element name="UCPTmissedMessages" type="int" />
+          <element name="UCPTresetCause" type="ilon:E_LonString" />
+          <element name="UCPTversionNumber" type="int" />
+          <element name="UCPTerrorLog" type="ilon:E_LonString" />
+          <element name="UCPTneuronModel" type="ilon:E_LonString" />
+          <element name="UCPTonlineStatus" type="ilon:E_LonString" />
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="LON_Device_RepeatingData_InvokeResponse">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+			  Response to LON specific device command 'RepeatingData'.
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:Item_Data">
+        <sequence>
+          <element name="UCPTplrCommissionStatus" type="ilon:E_LonString" />
+          <element name="UCPTplrOnlineStatus" type="ilon:E_LonString" />
+          <element name="UCPTcommAttempts" type="int" />
+          <element name="UCPTcommFailures" type="int" />
+          <element name="UCPTcommAgentSwitch" type="int" />
+          <element name="UCPTcommSkipped" type="int" />
+          <element name="UCPTfailureHistory" type="ilon:E_LonString" />
+          <element name="UCPTproxyAgentCount" type="int" />
+          <element name="UCPThopCount" type="int" />
+          <element minOccurs="0" maxOccurs="unbounded" name="RepeatChain">
+            <complexType>
+              <sequence>
+                <element name="UCPTname" type="string" />
+                <element name="FrequencyInfo" type="ilon:LON_Device_DataFrequencyInfo" />
+              </sequence>
+            </complexType>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="LON_Device_PowerlineData_InvokeResponse">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+			  Response to LON specific device command 'PowerlineData'.
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:Item_Data">
+        <sequence>
+          <element minOccurs="1" maxOccurs="2" name="FrequencyInfo" type="ilon:LON_Device_DataFrequencyInfo" />
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="LON_Device_ProxyData_InvokeResponse">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+			  Response to LON specific device command 'ProxyData'.
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:Item_Data">
+        <sequence>
+          <element minOccurs="0" maxOccurs="10" name="ProxyAgent">
+            <complexType>
+              <sequence>
+                <element name="UCPTname" type="string" />
+                <element name="UCPTfailureHistory" type="ilon:E_LonString" />
+                <element minOccurs="1" maxOccurs="2" name="FrequencyInfo" type="ilon:LON_Device_DataFrequencyInfo" />
+              </sequence>
+            </complexType>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="LON_Device_DataFrequencyInfo">
+    <sequence>
+      <element name="UCPTfrequency" type="int" />
+      <element name="UCPTsignalMeasurementType" type="ilon:E_LonString" />
+      <element name="UCPTsignalStrength" type="int" />
+      <element name="UCPTsignalMargin" type="int" />
+    </sequence>
+  </complexType>
+  <complexType name="Virtual_Network_Cfg">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				Specialized network configuration type.
+					Example:  xSelect="//Item[@xsi:type="Virtual_Network_Cfg"]".
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:Item_Cfg">
+        <sequence>
+          <element minOccurs="0" name="UCPThandle" type="ilon:E_UniqueKey" />
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="Virtual_Channel_Cfg">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				Specialized channel configuration type.
+					Example:  xSelect="//Item[@xsi:type="Virtual_Channel_Cfg"]"
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:Item_Cfg">
+        <sequence>
+          <element minOccurs="0" name="UCPThandle" type="ilon:E_UniqueKey" />
+          <element name="UCPTchannelType" type="string" />
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="Virtual_Device_Cfg">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				Specialized device configuration type.
+					Example:  xSelect="//Item[@xsi:type="Virtual_Device_Cfg"]"
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:Item_Cfg">
+        <sequence>
+          <element minOccurs="0" name="UCPThandle" type="ilon:E_UniqueKey" />
+          <element minOccurs="0" name="UCPTprogramId" type="hexBinary" />
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="Virtual_Fb_Cfg">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				Specialized functional block configuration type.
+					Example:  xSelect="//Item[@xsi:type="Virtual_Fb_Cfg"]"
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:Fb_Cfg">
+        <sequence>
+          <element minOccurs="0" name="UCPThandle" type="ilon:E_UniqueKey" />
+          <element minOccurs="0" name="UCPTfptKey" type="string" />
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="Virtual_Dp_Cfg">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				Specialized data point configuration type.
+				Example: xSelect="//Item[@xsi:type="Virtual_Dp_Cfg"]"
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:Dp_Cfg_Base">
+        <sequence>
+          <element minOccurs="0" name="UCPThandle" type="ilon:E_UniqueKey" />
+          <element minOccurs="0" name="UCPTpollRate" type="double" />
+          <element minOccurs="0" name="UCPTprogrammaticName" type="string" />
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="MOD_Network_Cfg">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				Specialized network configuration type.
+					Example:  xSelect="//Item[@xsi:type="MOD_Network_Cfg"]".
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:Item_Cfg">
+        <sequence>
+          <element minOccurs="0" name="UCPThandle" type="ilon:E_UniqueKey" />
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="MOD_Channel_Cfg">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				Specialized channel configuration type.
+					Example:  xSelect="//Item[@xsi:type="MOD_Channel_Cfg"]"
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:Item_Cfg">
+        <sequence>
+          <element minOccurs="0" name="UCPThandle" type="ilon:E_UniqueKey" />
+          <element name="UCPTchannelType" type="ilon:E_LonString" />
+          <element minOccurs="0" name="UCPTport" type="int" />
+          <element minOccurs="0" name="InterfaceOptions" type="ilon:E_InterfaceOptions" />
+          <element minOccurs="0" name="UCPTserialMode" type="ilon:E_LonString" />
+          <element minOccurs="0" name="UCPTretryCount" type="ilon:E_LonString" />
+          <element minOccurs="0" name="UCPTminOfflineTime" type="ilon:E_LonString" />
+          <element minOccurs="0" name="UCPTassembleTime" type="int" />
+          <element minOccurs="0" name="UCPTtimeout" type="int" />
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="MOD_Device_Cfg">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				Specialized device configuration type.
+					Example:  xSelect="//Item[@xsi:type="MOD_Device_Cfg"]"
+					Example:  xSelect="//Item[@xsi:type="MOD_Device_Cfg"][starts-with(UCPTname,'Net/MOD/')]"
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:Item_Cfg">
+        <sequence>
+          <element minOccurs="0" name="UCPThandle" type="ilon:E_UniqueKey" />
+          <element minOccurs="0" name="UCPTprogramId" type="hexBinary" />
+          <element minOccurs="0" name="UCPTmaxElements" type="int" />
+          <element minOccurs="0" name="Address">
+            <complexType>
+              <sequence>
+                <element name="UCPTaddress" type="int" />
+                <element minOccurs="0" name="UCPTipAddress" type="anyURI" />
+              </sequence>
+            </complexType>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="MOD_Fb_Cfg">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				Specialized functional block configuration type.
+					Example:  xSelect="//Item[@xsi:type="MOD_Fb_Cfg"]"
+					Example:  xSelect="//Item[@xsi:type="MOD_Fb_Cfg"][starts-with(UCPTname,'Net/MOD/')]"
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:Fb_Cfg">
+        <sequence>
+          <element minOccurs="0" name="UCPThandle" type="ilon:E_UniqueKey" />
+          <element minOccurs="0" name="UCPTfptKey" type="string" />
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="MOD_Dp_Cfg">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				Specialized data point configuration type.
+					Example:  xSelect="//Item[@xsi:type="MOD_Dp_Cfg"]"
+					Example:  xSelect="//Item[@xsi:type="MOD_Dp_Cfg"][starts-with(UCPTname,'Net/MOD/')]"
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:Dp_Cfg_Base">
+        <sequence>
+          <element minOccurs="0" name="UCPThandle" type="ilon:E_UniqueKey" />
+          <element name="UCPTbaseType" type="ilon:E_LonString" />
+          <element name="UCPTmodbusTable" type="ilon:E_LonString" />
+          <element name="UCPTstartAddress" type="int" />
+          <element name="UCPTstartBit" type="int" />
+          <element minOccurs="0" name="UCPTbitLength" type="int" />
+          <element name="UCPTdataOrdering" type="ilon:E_LonString" />
+          <element minOccurs="0" name="UCPTpollRate" type="double" />
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="MBS_Network_Cfg">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				Specialized network configuration type.
+					Example:  xSelect="//Item[@xsi:type="MBS_Network_Cfg"]".
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:Item_Cfg">
+        <sequence>
+          <element minOccurs="0" name="UCPThandle" type="ilon:E_UniqueKey" />
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="MBS_Channel_Cfg">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				Specialized channel configuration type.
+					Example:  xSelect="//Item[@xsi:type="MBS_Channel_Cfg"]"
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:Item_Cfg">
+        <sequence>
+          <element minOccurs="0" name="UCPThandle" type="ilon:E_UniqueKey" />
+          <element name="UCPTchannelType" type="ilon:E_LonString" />
+          <element minOccurs="0" name="InterfaceOptions" type="ilon:E_InterfaceOptions" />
+          <element minOccurs="0" name="UCPTretryCount" type="ilon:E_LonString" />
+          <element minOccurs="0" name="UCPTminOfflineTime" type="ilon:E_LonString" />
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="MBS_Device_Cfg">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				Specialized device configuration type.
+					Example:  xSelect="//Item[@xsi:type="MBS_Device_Cfg"]"
+					Example:  xSelect="//Item[@xsi:type="MBS_Device_Cfg"][starts-with(UCPTname,'Net/MBS/')]"
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:Item_Cfg">
+        <sequence>
+          <element minOccurs="0" name="UCPThandle" type="ilon:E_UniqueKey" />
+          <element minOccurs="0" name="UCPTprogramId" type="hexBinary" />
+          <element name="UCPTspeed" type="ilon:E_LonString" />
+          <element minOccurs="0" name="UCPTmbusFcbEnable" type="ilon:E_Flag" />
+          <element minOccurs="0" name="UCPTmbusFcvEnable" type="ilon:E_Flag" />
+          <element minOccurs="0" name="UCPTmbusMode" type="ilon:E_LonString" />
+          <element minOccurs="0" name="UCPTmbusMedId" type="string" />
+          <element minOccurs="0" name="UCPTmbusManId" type="string" />
+          <element minOccurs="0" name="UCPTmbusGenId" type="string" />
+          <element minOccurs="0" name="Address">
+            <complexType>
+              <sequence>
+                <element name="UCPTmbusAddressTyp" type="ilon:E_LonString" />
+                <element name="UCPTmbusPrimaryAddress" type="string" />
+                <element name="UCPTmbusSecondaryAddress" type="string" />
+              </sequence>
+            </complexType>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="MBS_Fb_Cfg">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				Specialized functional block configuration type.
+					Example:  xSelect="//Item[@xsi:type="MBS_Fb_Cfg"]"
+					Example:  xSelect="//Item[@xsi:type="MBS_Fb_Cfg"][starts-with(UCPTname,'Net/MBS/')]"
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:Fb_Cfg">
+        <sequence>
+          <element minOccurs="0" name="UCPThandle" type="ilon:E_UniqueKey" />
+          <element minOccurs="0" name="UCPTfptKey" type="string" />
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="MBS_Dp_Cfg">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				Specialized data point configuration type.
+					Example:  xSelect="//Item[@xsi:type="MBS_Dp_Cfg"]"
+					Example:  xSelect="//Item[@xsi:type="MBS_Dp_Cfg"][starts-with(UCPTname,'Net/MBS/')]"
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:Dp_Cfg_Base">
+        <sequence>
+          <element minOccurs="0" name="UCPThandle" type="ilon:E_UniqueKey" />
+          <element minOccurs="0" name="UCPTpollRate" type="double" />
+          <element minOccurs="0" name="UCPTmbusType" type="ilon:E_LonString" />
+          <element minOccurs="0" name="UCPTmbusProtocol" type="string" />
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+</schema>

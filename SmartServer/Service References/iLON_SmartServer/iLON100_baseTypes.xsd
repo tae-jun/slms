@@ -1,0 +1,460 @@
+<?xml version="1.0" encoding="utf-8"?>
+<schema xmlns:ilon="http://wsdl.echelon.com/web_services_ns/ilon100/v4.0/message/" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://wsdl.echelon.com/web_services_ns/ilon100/v4.0/message/" xmlns="http://www.w3.org/2001/XMLSchema">
+  <annotation>
+    <appinfo>
+			_____________________________________________________________
+			i.LON100's general declaration of base types and enumerations.
+			The declarations are used for the SOAP interface.
+			_____________________________________________________________
+			It is prohibited to change any declaration in this file!
+
+			Copyright 2007 Echelon Corporation
+			http://www.echelon.com
+			_____________________________________________________________
+		</appinfo>
+  </annotation>
+  <complexType name="Item">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				Any further 'Item' type extends this generic type.
+			]]></documentation>
+    </annotation>
+    <sequence>
+      <element minOccurs="0" name="fault" type="ilon:E_Fault" />
+      <element name="UCPTname" type="string" />
+      <element minOccurs="0" name="UCPTannotation" type="string" />
+      <element minOccurs="0" name="UCPThidden" type="ilon:E_Flag" />
+      <element minOccurs="0" name="UCPTaliasName" type="string" />
+      <element minOccurs="0" name="UCPTitemStatus" type="ilon:E_LonString" />
+    </sequence>
+  </complexType>
+  <complexType name="Item_Cfg">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				'Item_Cfg' is the generic configuration type (Get-resp/Set-req).
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:Item">
+        <sequence>
+          <element minOccurs="0" name="UCPTlastUpdate" type="dateTime" />
+          <element minOccurs="0" name="UCPTdescription" type="string" />
+          <element minOccurs="0" name="UCPTuri" type="string" />
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="Item_Data">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				'Item_Data' is the generic data type (Read-resp/Write-req).
+		]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:Item">
+        <sequence>
+          <element minOccurs="0" name="UCPTlastUpdate" type="dateTime" />
+          <element minOccurs="0" name="UCPTdescription" type="string" />
+          <element minOccurs="0" name="UCPTuri" type="string" />
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="Item_Service">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				Extended 'Item' service responses
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:Item">
+        <sequence>
+          <element minOccurs="0" name="UCPTlastUpdate" type="dateTime" />
+          <element minOccurs="0" name="UCPTdescription" type="string" />
+          <element minOccurs="0" name="UCPTfileSize" type="int" />
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="Item_Coll">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				'Item_Coll' is the generic collection of 'Item'.
+				It is used for 'List'-resp, 'Get'-req, 'Set'-resp, 'Delete'-req/-resp, 'Read'-req, 'Write'-resp, 'Clear'-req/-resp, 'InvokeCmd'-req/-resp
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:E_xSelect">
+        <sequence>
+          <element minOccurs="0" name="UCPTfaultCount" type="int" />
+          <element minOccurs="0" name="fault" type="ilon:E_Fault" />
+          <element minOccurs="0" name="UCPTcurrentConfig" type="string" />
+          <element minOccurs="0" maxOccurs="unbounded" name="Item" type="ilon:Item" />
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="Item_CfgColl">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				'Item_CfgColl' is the generic collection of 'Item_Cfg'.
+				It is used for 'Get'-resp, 'Set'-req,
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:E_xSelect">
+        <sequence>
+          <element minOccurs="0" name="UCPTfaultCount" type="int" />
+          <element minOccurs="0" name="fault" type="ilon:E_Fault" />
+          <element minOccurs="0" maxOccurs="unbounded" name="Item" type="ilon:Item_Cfg" />
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="Item_DataColl">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				'Item_DataColl' is the generic collection of 'Item_Data'.
+				It is used for 'Read'-resp, 'Write'-req,
+			]]></documentation>
+    </annotation>
+    <complexContent mixed="false">
+      <extension base="ilon:E_xSelect">
+        <sequence>
+          <element minOccurs="0" name="UCPTfaultCount" type="int" />
+          <element minOccurs="0" name="fault" type="ilon:E_Fault" />
+          <element minOccurs="0" maxOccurs="unbounded" name="Item" type="ilon:Item_Data" />
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="E_Fault">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				The general fault type
+			]]></documentation>
+    </annotation>
+    <sequence>
+      <element name="faultcode">
+        <complexType>
+          <simpleContent>
+            <extension base="int">
+              <attribute name="faultType" type="ilon:Fault_eType" use="required" />
+            </extension>
+          </simpleContent>
+        </complexType>
+      </element>
+      <element name="faultstring" type="string" />
+    </sequence>
+  </complexType>
+  <simpleType name="Fault_eType">
+    <restriction base="string">
+      <enumeration value="_warning" />
+      <enumeration value="_error" />
+    </restriction>
+  </simpleType>
+  <complexType name="E_xSelect">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				You can define your request filters here. xSelect is "geared to xPath" expressions
+			]]></documentation>
+    </annotation>
+    <sequence>
+      <element minOccurs="0" name="xSelect" type="string" />
+    </sequence>
+  </complexType>
+  <complexType name="E_DpRef">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				A Fb-Item references a used Dp here. 'E_DpRef' may be extended to a special '[Fb]_DpRef' xsd:type.
+				ATTENTION: use the 'Dp_eType' enumeration for the 'dpType'
+			]]></documentation>
+    </annotation>
+    <sequence>
+      <element name="UCPTname" type="string" />
+      <element minOccurs="0" name="UCPTformatDescription" type="string" />
+    </sequence>
+    <attribute name="dpType" type="string" use="required" />
+    <attribute name="discrim" type="ilon:DpRef_eDiscriminator" use="optional" />
+  </complexType>
+  <simpleType name="Dp_eType">
+    <restriction base="string">
+      <enumeration value="_Any" />
+      <enumeration value="Input" />
+      <enumeration value="Output" />
+      <enumeration value="InOut" />
+      <enumeration value="Compare" />
+      <enumeration value="Alarm" />
+      <enumeration value="Alarm2" />
+      <enumeration value="AlarmDestEnable" />
+      <enumeration value="Elevation" />
+      <enumeration value="Azimuth" />
+      <enumeration value="Sunrise" />
+      <enumeration value="Sunset" />
+      <enumeration value="BaseTime" />
+      <enumeration value="Source" />
+      <enumeration value="Target" />
+      <enumeration value="nviEnable" />
+      <enumeration value="nvoDropOut" />
+      <enumeration value="nvoTimeDate" />
+      <enumeration value="nvoSummerTime" />
+      <enumeration value="nvoWinterTime" />
+      <enumeration value="nviTimeZone" />
+      <enumeration value="nciMasterSlave" />
+      <enumeration value="nciUpdateRate" />
+      <enumeration value="nvoDateEvent" />
+      <enumeration value="nviDateResync" />
+      <enumeration value="nciInputType" />
+      <enumeration value="nciInvert" />
+      <enumeration value="nvoSetting" />
+      <enumeration value="nviLatchEnable" />
+      <enumeration value="nvoAlarmFlag" />
+      <enumeration value="nvoLevelAlarm" />
+      <enumeration value="nviClear" />
+      <enumeration value="nvoValueDif" />
+      <enumeration value="nciDeltaTime" />
+      <enumeration value="nvoValueFb" />
+      <enumeration value="nviValue" />
+      <enumeration value="nviValueFb" />
+      <enumeration value="nvoValue" />
+      <enumeration value="nviTrigger" />
+      <enumeration value="nciValueSet" />
+      <enumeration value="nciCorrFactor" />
+      <enumeration value="nviRequest" />
+      <enumeration value="nvoStatus" />
+      <enumeration value="nviDateEvent" />
+      <enumeration value="nviTimeSet" />
+      <enumeration value="nvoDateResync" />
+      <enumeration value="nvoDeviceAlarm" />
+      <enumeration value="nvoIpAddress" />
+      <enumeration value="nviFileReq" />
+      <enumeration value="nvoFileStat" />
+      <enumeration value="nviFilePos" />
+      <enumeration value="nvoFileDirectory" />
+    </restriction>
+  </simpleType>
+  <simpleType name="DpRef_eDiscriminator">
+    <restriction base="string">
+      <enumeration value="dir_in" />
+      <enumeration value="dir_out" />
+      <enumeration value="dir_in_out" />
+    </restriction>
+  </simpleType>
+  <complexType name="E_LonString">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				The value may be any value (scalar, enum, struct, ..). The 'LonFormat' maps the LON-Format-Description of the value.
+			]]></documentation>
+    </annotation>
+    <simpleContent>
+      <extension base="string">
+        <attribute name="LonFormat" type="string" use="required" />
+        <attribute name="Unit" type="string" use="optional" />
+      </extension>
+    </simpleContent>
+  </complexType>
+  <simpleType name="E_Flag">
+    <restriction base="short">
+      <minInclusive value="0" />
+      <maxInclusive value="1" />
+    </restriction>
+  </simpleType>
+  <complexType name="E_UniqueKey">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				This is a unique key (like a DB PK) for a Item-type
+			]]></documentation>
+    </annotation>
+    <simpleContent>
+      <extension base="int" />
+    </simpleContent>
+  </complexType>
+  <complexType name="E_Path">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				Contains XPath to another element
+			]]></documentation>
+    </annotation>
+    <simpleContent>
+      <extension base="string" />
+    </simpleContent>
+  </complexType>
+  <complexType name="E_Unit">
+    <simpleContent>
+      <extension base="string">
+        <attribute name="field" type="string" use="optional" />
+      </extension>
+    </simpleContent>
+  </complexType>
+  <complexType name="E_InterfaceOptions">
+    <sequence>
+      <element name="UCPTspeed" type="ilon:E_LonString" />
+      <element name="UCPTsize" type="ilon:E_LonString" />
+      <element name="UCPTparity" type="ilon:E_LonString" />
+      <element name="UCPTstopBits" type="ilon:E_LonString" />
+    </sequence>
+  </complexType>
+  <simpleType name="E_Priority">
+    <restriction base="int">
+      <minInclusive value="0" />
+      <maxInclusive value="255" />
+    </restriction>
+  </simpleType>
+  <complexType name="E_Variant">
+    <complexContent mixed="false">
+      <extension base="ilon:Item">
+        <sequence>
+          <element minOccurs="0" name="UCPTlastUpdate" type="dateTime" />
+          <element minOccurs="0" name="UCPTdescription" type="string" />
+          <element minOccurs="0" maxOccurs="unbounded" name="Data">
+            <complexType>
+              <sequence>
+                <element minOccurs="0" name="UCPTindex" type="int" />
+                <element minOccurs="0" name="UCPTname" type="string" />
+                <element name="UCPTvalue" type="ilon:E_LonString" />
+              </sequence>
+            </complexType>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="E_Dummy" abstract="true">
+    <complexContent mixed="false">
+      <extension base="ilon:Item">
+        <sequence>
+          <element name="DummyA" type="ilon:Dp_eType" />
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="messageProperties">
+    <annotation>
+      <documentation xml:lang="en-us"><![CDATA[
+				Common soap message header
+			]]></documentation>
+    </annotation>
+    <complexType>
+      <sequence>
+        <element minOccurs="0" name="UCPTtimeStamp" type="dateTime" />
+        <element minOccurs="0" name="UCPTuniqueId" type="hexBinary" />
+        <element minOccurs="0" name="UCPTipAddress" type="anyURI" />
+        <element minOccurs="0" name="UCPTport" type="int" />
+        <element minOccurs="0" name="UCPTlastUpdate" type="dateTime" />
+        <element minOccurs="0" name="UCPTprocessingTime" type="long" />
+      </sequence>
+    </complexType>
+  </element>
+  <element name="List">
+    <complexType>
+      <sequence>
+        <element name="iLonItem" type="ilon:E_xSelect" />
+      </sequence>
+    </complexType>
+  </element>
+  <element name="ListResponse">
+    <complexType>
+      <sequence>
+        <element name="iLonItem" type="ilon:Item_Coll" />
+      </sequence>
+    </complexType>
+  </element>
+  <element name="Get">
+    <complexType>
+      <sequence>
+        <element name="iLonItem" type="ilon:Item_Coll" />
+      </sequence>
+    </complexType>
+  </element>
+  <element name="GetResponse">
+    <complexType>
+      <sequence>
+        <element name="iLonItem" type="ilon:Item_CfgColl" />
+      </sequence>
+    </complexType>
+  </element>
+  <element name="Set">
+    <complexType>
+      <sequence>
+        <element name="iLonItem" type="ilon:Item_CfgColl" />
+      </sequence>
+    </complexType>
+  </element>
+  <element name="SetResponse">
+    <complexType>
+      <sequence>
+        <element name="iLonItem" type="ilon:Item_Coll" />
+      </sequence>
+    </complexType>
+  </element>
+  <element name="Delete">
+    <complexType>
+      <sequence>
+        <element name="iLonItem" type="ilon:Item_Coll" />
+      </sequence>
+    </complexType>
+  </element>
+  <element name="DeleteResponse">
+    <complexType>
+      <sequence>
+        <element name="iLonItem" type="ilon:Item_Coll" />
+      </sequence>
+    </complexType>
+  </element>
+  <element name="Read">
+    <complexType>
+      <sequence>
+        <element name="iLonItem" type="ilon:Item_Coll" />
+      </sequence>
+    </complexType>
+  </element>
+  <element name="ReadResponse">
+    <complexType>
+      <sequence>
+        <element name="iLonItem" type="ilon:Item_DataColl" />
+      </sequence>
+    </complexType>
+  </element>
+  <element name="Write">
+    <complexType>
+      <sequence>
+        <element name="iLonItem" type="ilon:Item_DataColl" />
+      </sequence>
+    </complexType>
+  </element>
+  <element name="WriteResponse">
+    <complexType>
+      <sequence>
+        <element name="iLonItem" type="ilon:Item_Coll" />
+      </sequence>
+    </complexType>
+  </element>
+  <element name="Clear">
+    <complexType>
+      <sequence>
+        <element name="iLonItem" type="ilon:Item_Coll" />
+      </sequence>
+    </complexType>
+  </element>
+  <element name="ClearResponse">
+    <complexType>
+      <sequence>
+        <element name="iLonItem" type="ilon:Item_Coll" />
+      </sequence>
+    </complexType>
+  </element>
+  <element name="InvokeCmd">
+    <complexType>
+      <sequence>
+        <element name="iLonItem" type="ilon:Item_Coll" />
+      </sequence>
+    </complexType>
+  </element>
+  <element name="InvokeCmdResponse">
+    <complexType>
+      <sequence>
+        <element name="iLonItem" type="ilon:Item_Coll" />
+      </sequence>
+    </complexType>
+  </element>
+</schema>
