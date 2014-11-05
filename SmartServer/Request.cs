@@ -23,7 +23,7 @@ namespace SmartServer
 
         public static object write(object input)
         {
-            return null;
+            return input;
         }
     }
 }

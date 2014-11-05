@@ -35,6 +35,7 @@
 .lightMonitor {
     height: 100%;
     padding-left: 20px;
+    padding-right: 20px;
 }
 .lightMonitor .groupName {
     cursor: pointer;
@@ -48,3 +49,6 @@
     padding-bottom: 10px;
 }
 
+.lightMonitor .slider {
+    margin-bottom: 20px;
+}

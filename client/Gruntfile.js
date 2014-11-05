@@ -33,7 +33,7 @@ module.exports = function (grunt) {
                 dest: '<%= distdir %>/angular.js'
             },
             jquery: {
-                src: ['vendor/jquery/*.js', 'vendor/spectrum/*.js'],
+                src: ['vendor/jquery/*.js', 'vendor/spectrum/*.js', 'vendor/jquery-ui/*.js'],
                 dest: '<%= distdir %>/jquery.js'
             },
             css: {

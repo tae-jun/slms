@@ -13,7 +13,9 @@
 
         modalBackdrop: {
             templateUrl: 'static/modalBackdrop.tpl.html'
-        }
+        },
+
+        sliderTplUrl: 'static/slider.tpl.html'
     }
 
     export var sideBar = {

@@ -7,7 +7,15 @@ var option: edge.IFuncOption = {
 
 var read = edge.func(option);
 
-read({id: 'sadfsadf'}, (err, result) => {
+read({id: '1'}, (err, result) => {
     if (err) throw err;
     console.log(result);
 });
+
+
+setTimeout(() => {
+    read({ id: '2' }, (err, result) => {
+        if (err) throw err;
+        console.log(result);
+    });
+}, 10000);

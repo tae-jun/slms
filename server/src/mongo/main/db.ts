@@ -21,7 +21,7 @@ class ConnectionPool {
             this.status = status.connecting
             this.callbacks.push(callback);
 
-            connect('main', (db) => {
+            connect('duri', (db) => {
                 this.db = db;
                 this.status = status.connected;
 

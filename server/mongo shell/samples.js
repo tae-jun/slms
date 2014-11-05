@@ -1,4 +1,4 @@
-use main;
+use duri;
 
 // random function
 var random = function(max){
@@ -44,6 +44,7 @@ schedulers.forEach(function(scheduler){
             name: '그룹 ' + groupCount,
             sid: scheduler._id,
             rgb: [random(255), random(255), random(255)],
+            dim: random(15),
             did: groupCount     // device id
         });
         groupCount++;
@@ -62,7 +63,8 @@ groups.forEach(function (group) {
             lat: Math.random() * 0.05 + 37.657912,
             lng: Math.random() * 0.05 + 126.7723187,
             gid: group._id,
-            rgb: [random(255), random(255), random(255)]
+            rgb: [random(255), random(255), random(255)],
+            dim: random(15)
         });
     }
 });
@@ -72,7 +74,9 @@ for (var i = 0; i < Math.random() * lightNum + 1; i++) {
         name: '그룹이 없는 가로등 ' + i,
         lat: Math.random() * 0.01 + 37.657912,
         lng: Math.random() * 0.01 + 126.7723187,
-        gid: null
+        gid: null,
+        rgb: [random(255), random(255), random(255)],
+        dim: random(15)
     });
 }
 

@@ -52,6 +52,7 @@
     <None Include="test\mongo\groups.spec.ts.legacy" />
     <None Include="test\mongo\lights.spec.ts.legacy" />
     <TypeScriptCompile Include="Scripts\typings\node\node.d.ts" />
+    <TypeScriptCompile Include="src\smart-server\SmartServer.ts" />
     <TypeScriptCompile Include="src\smart-server\test.ts" />
   </ItemGroup>
   <ItemGroup>

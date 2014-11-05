@@ -20,9 +20,10 @@
              */
 
             $scope.control = () => {
-                $scope.light.control($scope.newRgb, (res) => {
-                    $scope.rgb = $scope.newRgb;
-                });
+                //$scope.light.control($scope.newRgb, (res) => {
+                //    $scope.rgb = $scope.newRgb;
+                //});
+                console.log($scope.light.dim);
             };
 
             $scope.edit = () => {

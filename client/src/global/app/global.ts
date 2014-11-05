@@ -8,6 +8,7 @@
 /// <reference path="../services/groupservice.ts" />
 /// <reference path="../services/windowadmin.ts" />
 /// <reference path="../services/lightservice.ts" />
+/// <reference path="../directives/slider.ts" />
 
 module global {
     angular.module('global', ['ngResource'])
@@ -20,6 +21,7 @@ module global {
         .directive('ngContextMenu', ngContextMenu)
         .directive('color', color)
         .directive('modalBackdrop', modalBackdropDrt)
+        .directive('slider', sliderDrt)
         .run(($window, lightService: LightService, groupService: GroupService, schedulerService: SchedulerService, $modal: ModalService) => {
             $window.lightService = lightService;
             $window.groupService = groupService;

@@ -145,6 +145,7 @@ module global {
         lng: number;
         gid: string;
         rgb: number[];
+        dim: number;
 
         // local
         marker: googleMaps.Marker;

@@ -10,6 +10,8 @@ namespace SmartServer
     {
         public async Task<object> read(object input)
         {
+
+
             return Request.read(input);
         }
 
