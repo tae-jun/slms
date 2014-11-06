@@ -6,6 +6,7 @@ import http = require('http');
 import express = require('express');
 require('express-namespace');
 import path = require('path');
+import SmartServer = require('./src/smart-server/SmartServer');
 
 // my modules
 import config = require('./config');
@@ -23,6 +24,9 @@ app.use(app.router);
 
 // routes
 require('./src/routes/index')(app);
+
+// start up C# dll
+SmartServer.startup();
 
 http.createServer(app).listen(config.port, function () {
     console.log('Express server listening on port ' + config.port);

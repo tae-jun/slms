@@ -182,13 +182,12 @@ module global {
         }
 
         /**
-         * Change this light's color
+         * Change this light's dimming
          */
-        control(rgb: number[], callback?: (res: any) => void) {
+        control(dim: number, callback?: (res: any) => void) {
             // request data form
             var data = {
-                _id: this._id,
-                rgb: rgb
+                dim: dim
             };
             // request to server
             this.$http.post(config.lightCtrlUrl + '/' + this._id, data)

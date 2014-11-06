@@ -49,8 +49,6 @@
     <TypeScriptCompile Include="Scripts\typings\express\express.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\google-maps\google.maps.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\mongodb\mongodb.d.ts" />
-    <None Include="test\mongo\groups.spec.ts.legacy" />
-    <None Include="test\mongo\lights.spec.ts.legacy" />
     <TypeScriptCompile Include="Scripts\typings\node\node.d.ts" />
     <TypeScriptCompile Include="src\smart-server\SmartServer.ts" />
     <TypeScriptCompile Include="src\smart-server\test.ts" />
@@ -66,7 +64,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="src\mongo\server\" />
-    <Folder Include="test\mongo\main\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,8 +1,8 @@
 ﻿import edge = require('edge');
+import path = require('path');
 
 
-
-var assemblyFile = 'SmartServer.dll';
+var assemblyFile = path.join(__dirname, 'SmartServer.dll');
 
 var option: edge.IFuncOption = {
     assemblyFile: assemblyFile
@@ -11,6 +11,9 @@ var option: edge.IFuncOption = {
 var _read;
 var _write;
 
+/**
+ * Start up C# .NET dll
+ */
 export function startup(callback?: () => void) {
     option.methodName = 'read';
     _read = edge.func(option);
@@ -22,35 +25,35 @@ export function startup(callback?: () => void) {
         callback();
 }
 
-export function read(id: string, callback: (result) => void) {
+/**
+ * Read smart server's state
+ */
+export function read(id: string, callback: (err, result) => void) {
     var input = {
         id: id
     };
 
     _read(input, (err, result) => {
-        if (err) return console.error(err);
-        callback(result);
+        if (err)
+            callback(err, null);
+        else
+            callback(null, result);
     });
 }
 
-export function write(id: string, value, callback: (result) => void) {
+/**
+ * Write smart server's state
+ */
+export function write(id: string, value, callback: (err, result) => void) {
     var input = {
         id: id,
         value: value
     };
 
     _write(input, (err, result) => {
-        if (err) return console.error(err);
-        callback(result);
+        if (err)
+            callback(err, null);
+        else
+            callback(null, result);
     });
 }
-
-startup(() => {
-    read('readID', (result) => {
-        console.log(result);
-    });
-
-    write('writeID', { dim: 'A' }, (result) => {
-        console.log(result);
-    });
-});

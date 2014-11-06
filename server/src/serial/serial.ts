@@ -1,5 +1,4 @@
-﻿
-import config = require('../../config');
+﻿import config = require('../../config');
 var SerialPort = require("serialport").SerialPort;
 
 var serialPort = require("serialport");

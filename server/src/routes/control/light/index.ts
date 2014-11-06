@@ -1,29 +1,30 @@
 ﻿import express = require('express');
 import serial = require('../../../serial/serial');
 import lights = require('../../../mongo/main/lights');
-import groups = require('../../../mongo/main/groups');
+import SmartServer = require('../../../smart-server/SmartServer');
 
 function addNamespace(app: express.Application) {
     app.namespace('/light', () => {
         app.post('/:id', (req: express.Request, res: express.Response) => {
-            var values: { rgb: number[] };     // rgb: size 3 number array
+            var id = req.params['id'];
+            var values: { dim: number };
             values = req.body;
 
-            var id = req.params['id'];
+            var dim = values.dim;
 
-            lights.findByID(id, (light) => {
-                groups.findByID(light.gid.toHexString(), (group) => {
-                    serial.setLight(values.rgb, group.did, () => {
-                        lights.update(id, { rgb: values.rgb });
+            SmartServer.write(id, dim, (err, result) => {
+                if (err) {
+                    console.error(err);
 
-                        var msg = {
-                            status: 'success',
-                            rgb: values.rgb
-                        };
-
-                        res.json(msg);
+                    lights.findByID(id, (light) => {
+                        res.json({ state: 'error', dim: light.dim });
                     });
-                });
+                }
+                else {
+                    lights.update(id, { dim: dim }, (num) => {
+                        res.json({ state: 'success', dim: dim });
+                    });
+                }
             });
         });
     });

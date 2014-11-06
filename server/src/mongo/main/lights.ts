@@ -16,6 +16,8 @@ export class Light {
     lat: number;
     lng: number;
     gid: ObjectId;
+    rgb: number[];
+    dim: number;
 }
 
 export function findAll(callback: (lights: Light[]) => void) {
