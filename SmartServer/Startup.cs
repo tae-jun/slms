@@ -8,16 +8,27 @@ namespace SmartServer
 {
     public class Startup
     {
-        public async Task<object> read(object input)
+        public async Task<object> read(dynamic input)
         {
+            string UCPTname = (string)input.UCPTname;
 
 
             return Request.read(input);
         }
 
-        public async Task<object> write(object input)
+        public async Task<object> write(dynamic input)
         {
-            return Request.write(input);
+            string UCPTname = (string)input.UCPTname;
+            int dim = (int)input.dim;
+
+            Request.write(UCPTname, dim);
+
+            object res = new
+            {
+                status = "success"
+            };
+
+            return res;
         }
     }
 }
