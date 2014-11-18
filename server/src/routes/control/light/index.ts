@@ -1,4 +1,5 @@
 ﻿import express = require('express');
+import serial = require('../../../serial/serial');
 import lights = require('../../../mongo/main/lights');
 import SmartServer = require('../../../smart-server/SmartServer');
 

@@ -1,7 +1,7 @@
 ﻿declare module 'edge' {
-    function func(): (args: Object, callback: (err: Error, result: any) => void) => void;
-    function func(dllName: string): (args: Object, callback: (err: Error, result: any) => void) => void;
-    function func(option: IFuncOption): (args: Object, callback: (err: Error, result: any) => void) => void;
+    function func(): Function;
+    function func(dllName: string): Function;
+    function func(option: IFuncOption): Function;
 
     interface IFuncOption {
         assemblyFile?: string;

@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace SmartServer
 {
-    public class Request
+    class Request
     {
         public static object read(string UCPTname)
         {
-
+            
 
             return null;
         }
@@ -31,16 +31,14 @@ namespace SmartServer
                 }
                 else
                 {
-                    string sDim = dim.ToString("X1");
-
                     iLON_SmartServer.Dp_Data tDimm = (iLON_SmartServer.Dp_Data)ItemDataColl.Item[0];
-                    tDimm.UCPTvalue[0].Value = sDim;
+                    tDimm.UCPTvalue[0].Value = dim.ToString();
 
                     iLON_SmartServer.Dp_Data tRelay = (iLON_SmartServer.Dp_Data)ItemDataColl.Item[10];
-                    tRelay.UCPTvalue[0].Value = sDim;
+                    tRelay.UCPTvalue[0].Value = dim.ToString();
 
                     SmartServer.Write(ItemDataColl);
-                    Console.WriteLine(string.Format("{0} = {1}", UCPTname, sDim));
+                    Console.WriteLine(string.Format("{0} = {1}", UCPTname, dim));
                 }
             }
             catch (Exception e)
@@ -51,6 +49,8 @@ namespace SmartServer
             {
                 iLON_SoapCalls.CloseBindingToSmartServer();
             }
+
+            //return null;
         }
     }
 }

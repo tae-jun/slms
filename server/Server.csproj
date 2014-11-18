@@ -45,6 +45,7 @@
     <TypeScriptCompile Include="src\routes\db\schedulers\index.ts" />
     <TypeScriptCompile Include="src\routes\index.ts" />
     <TypeScriptCompile Include="src\routes\static\static.ts" />
+    <TypeScriptCompile Include="src\serial\serial.ts" />
     <TypeScriptCompile Include="Scripts\typings\express\express.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\google-maps\google.maps.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\mongodb\mongodb.d.ts" />

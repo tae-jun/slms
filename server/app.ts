@@ -25,6 +25,9 @@ app.use(app.router);
 // routes
 require('./src/routes/index')(app);
 
+// start up C# dll
+SmartServer.startup();
+
 http.createServer(app).listen(config.port, function () {
     console.log('Express server listening on port ' + config.port);
 });
