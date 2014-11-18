@@ -1,5 +1,4 @@
 ﻿import express = require('express');
-import serial = require('../../../serial/serial');
 import groups = require('../../../mongo/main/groups');
 
 function addNamespace(app: express.Application) {
@@ -11,10 +10,10 @@ function addNamespace(app: express.Application) {
             groups.findByID(values._id, (group) => {
                 var deviceId = group.did;       // device id
 
-                serial.setLight(values.rgb, deviceId, () => {
-                    groups.update(values._id, { rgb: values.rgb });
-                    res.json({ rgb: values.rgb });
-                });
+                //serial.setLight(values.rgb, deviceId, () => {
+                //    groups.update(values._id, { rgb: values.rgb });
+                //    res.json({ rgb: values.rgb });
+                //});
             });
         });
     });

@@ -2,20 +2,17 @@
 
 var option: edge.IFuncOption = {
     assemblyFile: 'SmartServer.dll',
-    methodName: 'read'
+    methodName: 'write'
 };
 
-var read = edge.func(option);
+var write = edge.func(option);
 
-read({id: '1'}, (err, result) => {
-    if (err) throw err;
+var param = {
+    UCPTname: 'Net/LON/Test 1',
+    dim: 0
+};
+
+write(param, (err, result) => {
+    if (err) return console.error(err);
     console.log(result);
 });
-
-
-setTimeout(() => {
-    read({ id: '2' }, (err, result) => {
-        if (err) throw err;
-        console.log(result);
-    });
-}, 10000);

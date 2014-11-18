@@ -11,22 +11,15 @@ var option: edge.IFuncOption = {
 var _read;
 var _write;
 
-/**
- * Start up C# .NET dll
- */
-export function startup(callback?: () => void) {
-    option.methodName = 'read';
-    _read = edge.func(option);
+option.methodName = 'read';
+_read = edge.func(option);
 
-    option.methodName = 'write';
-    _write = edge.func(option);
-
-    if (callback)
-        callback();
-}
+option.methodName = 'write';
+_write = edge.func(option);
 
 /**
- * Read smart server's state
+ * Read smart server's state.
+ * WARNING! Uncompleted method.
  */
 export function read(id: string, callback: (err, result) => void) {
     var input = {
@@ -46,8 +39,8 @@ export function read(id: string, callback: (err, result) => void) {
  */
 export function write(id: string, value, callback: (err, result) => void) {
     var input = {
-        id: id,
-        value: value
+        UCPTname: 'Net/LON/Test 1',
+        dim: value
     };
 
     _write(input, (err, result) => {

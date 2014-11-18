@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Client\Client.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartServer", "SmartServer\SmartServer.csproj", "{7B969DE8-D820-4AAB-887E-86A90B71A365}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartServerTest", "SmartServerTest\SmartServerTest.csproj", "{A2CC9D93-DE12-408A-ADCF-91A54DB6487F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{7B969DE8-D820-4AAB-887E-86A90B71A365}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7B969DE8-D820-4AAB-887E-86A90B71A365}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7B969DE8-D820-4AAB-887E-86A90B71A365}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2CC9D93-DE12-408A-ADCF-91A54DB6487F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2CC9D93-DE12-408A-ADCF-91A54DB6487F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2CC9D93-DE12-408A-ADCF-91A54DB6487F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2CC9D93-DE12-408A-ADCF-91A54DB6487F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
