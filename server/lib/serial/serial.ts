@@ -42,8 +42,7 @@ serialPort.list((err, ports) => {
     });
 });
 
-
-export function setLight(rgb: number[], deviceId: number, callback?: Function) {
+export function setLight(rgb: number[], groupDeviceId: number, lightDeviceId: number, callback?: Function) {
     if (callback == undefined)
         callback = function () { }
 
@@ -57,7 +56,8 @@ export function setLight(rgb: number[], deviceId: number, callback?: Function) {
 
     startTime = new Date();
 
-    var buff = [35, deviceId, r, g, b, 38];
+    //var buff = [35, 36, r, g, b, 38];
+    var buff = [2, groupDeviceId, lightDeviceId, 0x10, r, g, b, 'T', 3];
 
     serials.forEach((serial) => {
         console.log('host: ' + buff);

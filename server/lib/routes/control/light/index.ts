@@ -13,7 +13,7 @@ function addNamespace(app: express.Application) {
 
             lights.findByID(id, (light) => {
                 groups.findByID(light.gid.toHexString(), (group) => {
-                    serial.setLight(values.rgb, group.did, () => {
+                    serial.setLight(values.rgb, group.did, light.did, () => {
                         lights.update(id, { rgb: values.rgb });
 
                         var msg = {

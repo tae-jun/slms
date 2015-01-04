@@ -19,6 +19,7 @@
   <ItemGroup>
     <Content Include=".gitignore" />
     <Content Include="GruntFile.js" />
+    <Content Include="mongo shell\samplesWithMachineId.js" />
     <Content Include="mongo shell\samples.js" />
     <Content Include="mongo shell\schedulerDoc.js" />
     <Content Include="web.config" />
