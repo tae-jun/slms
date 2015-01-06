@@ -2,26 +2,45 @@
 module.exports = function (grunt) {
 
     // These plugins provide necessary tasks.
-    grunt.loadNpmTasks('grunt-execute');
+    grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-ts');
+    grunt.loadNpmTasks('grunt-express-server');
 
     // Default task.
-    grunt.registerTask('default', ['ts', 'execute']);
+    grunt.registerTask('default', ['build']);
+    grunt.registerTask('build', ['ts']);
+    grunt.registerTask('server', ['build', 'express:dev', 'watch']);
 
     // Project configuration.
     grunt.initConfig({
-
         // Task configuration.
-        execute: {
-            server: {
-                src: ['app.js']
+        express: {
+            dev: {
+                options: {
+                    script: 'src/app.js'
+                }
+            }
+        },
+        watch: {
+            express: {
+                files: ['src/**/*.js'],
+                tasks: ['express:dev'],
+                options: {
+                    spawn: false
+                }
+            },
+            // Reload grunt config when Gruntfile.js is changed
+            gruntFile: {
+                files: ['Gruntfile.js'],
+                options: {
+                    reload: true
+                }
             }
         },
         ts: {
-            // A specific target
             build: {
                 // The source TypeScript files, http://gruntjs.com/configuring-tasks#files
-                src: ["./**/*.ts", '!,.Scripts/**/*', '!./node_modules/**/*'],
+                src: ["src/**/*.ts"],
                 // The source html files, https://github.com/grunt-ts/grunt-ts#html-2-typescript-support
                 //html: ["test/work/**/*.tpl.html"],
                 // If specified, generate this file that to can use for reference management
@@ -48,5 +67,4 @@ module.exports = function (grunt) {
             }
         }
     });
-
 };

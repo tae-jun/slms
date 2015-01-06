@@ -45,12 +45,12 @@
     <TypeScriptCompile Include="src\routes\index.ts" />
     <TypeScriptCompile Include="src\routes\static\static.ts" />
     <TypeScriptCompile Include="src\serial\serial.ts" />
-    <TypeScriptCompile Include="Scripts\typings\express\express.d.ts" />
-    <TypeScriptCompile Include="Scripts\typings\google-maps\google.maps.d.ts" />
-    <TypeScriptCompile Include="Scripts\typings\mongodb\mongodb.d.ts" />
+    <TypeScriptCompile Include="scripts\typings\express\express.d.ts" />
+    <TypeScriptCompile Include="scripts\typings\google-maps\google.maps.d.ts" />
+    <TypeScriptCompile Include="scripts\typings\mongodb\mongodb.d.ts" />
     <None Include="test\mongo\groups.spec.ts.legacy" />
     <None Include="test\mongo\lights.spec.ts.legacy" />
-    <TypeScriptCompile Include="Scripts\typings\node\node.d.ts" />
+    <TypeScriptCompile Include="scripts\typings\node\node.d.ts" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="package.json" />
