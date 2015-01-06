@@ -1,6 +1,7 @@
 ﻿/// <reference path="../../server/scripts/typings/node/node.d.ts" />
 /// <reference path="../scripts/typings/express-/express.d.ts" />
 /// <reference path="../scripts/typings/mongodb/mongodb.d.ts" />
+/// <reference path="../scripts/typings/async/async.d.ts" />
 
 // node modules
 import http = require('http');

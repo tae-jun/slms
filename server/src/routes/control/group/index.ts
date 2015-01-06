@@ -2,6 +2,7 @@
 import serial = require('../../../serial/serial');
 import groups = require('../../../mongo/main/groups');
 import lights = require('../../../mongo/main/lights');
+import async = require('async');
 
 function addNamespace(app: express.Application) {
     app.namespace('/group', () => {
@@ -11,17 +12,20 @@ function addNamespace(app: express.Application) {
 
             groups.findByID(values._id, (group) => {
                 lights.findByGID(group._id, (lights) => {
+                    var tasks = [];
                     lights.forEach((light) => {
-                        /**
-                         * 
-                         * 
-                         * 
-                         * res.json을 여러번 호출함
-                         */
-                        serial.setLight(values.rgb, group.did, light.did, () => {
-                            groups.update(values._id, { rgb: values.rgb });
-                            res.json({ rgb: values.rgb });
-                        });
+                        var task = (callback) => {
+                            serial.setLight(values.rgb, group.did, light.did, () => {
+                                groups.update(values._id, { rgb: values.rgb });
+                                callback(null, null);
+                            });
+                        };
+
+                        tasks.push(task);
+                    });
+
+                    async.parallel(tasks, (err, results) => {
+                        res.json({ rgb: values.rgb });
                     });
                 });
             });
