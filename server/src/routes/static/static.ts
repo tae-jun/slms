@@ -1,4 +1,4 @@
-﻿import config = require('../../../config');
+﻿import config = require('../../config');
 import express = require('express');
 
 function addRoute(app) {

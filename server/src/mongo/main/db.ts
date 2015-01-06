@@ -1,5 +1,5 @@
 ﻿import mongodb = require('mongodb');
-import config = require('../../../config');
+import config = require('../../config');
 import connect = require('../connect');
 import MongoClient = mongodb.MongoClient;
 import Db = mongodb.Db;

@@ -25,26 +25,26 @@
     <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="app.ts" />
-    <TypeScriptCompile Include="config.ts" />
-    <TypeScriptCompile Include="lib\mongo\connect.ts" />
-    <TypeScriptCompile Include="lib\mongo\main\db.ts" />
-    <TypeScriptCompile Include="lib\mongo\main\groups.ts" />
-    <TypeScriptCompile Include="lib\mongo\main\lights.ts" />
-    <TypeScriptCompile Include="lib\mongo\main\schedulers.ts" />
-    <TypeScriptCompile Include="lib\routes\control\index.ts" />
-    <TypeScriptCompile Include="lib\routes\control\group\index.ts" />
-    <TypeScriptCompile Include="lib\routes\control\light\index.ts" />
-    <TypeScriptCompile Include="lib\routes\db\index.ts" />
-    <TypeScriptCompile Include="lib\routes\db\groups\groups.ts" />
-    <TypeScriptCompile Include="lib\routes\db\groups\id\groupID.ts" />
-    <TypeScriptCompile Include="lib\routes\db\lights\id\lightID.ts" />
-    <TypeScriptCompile Include="lib\routes\db\lights\lights.ts" />
-    <TypeScriptCompile Include="lib\routes\db\schedulers\id.ts" />
-    <TypeScriptCompile Include="lib\routes\db\schedulers\index.ts" />
-    <TypeScriptCompile Include="lib\routes\index.ts" />
-    <TypeScriptCompile Include="lib\routes\static\static.ts" />
-    <TypeScriptCompile Include="lib\serial\serial.ts" />
+    <TypeScriptCompile Include="src\app.ts" />
+    <TypeScriptCompile Include="src\config.ts" />
+    <TypeScriptCompile Include="src\mongo\connect.ts" />
+    <TypeScriptCompile Include="src\mongo\main\db.ts" />
+    <TypeScriptCompile Include="src\mongo\main\groups.ts" />
+    <TypeScriptCompile Include="src\mongo\main\lights.ts" />
+    <TypeScriptCompile Include="src\mongo\main\schedulers.ts" />
+    <TypeScriptCompile Include="src\routes\control\index.ts" />
+    <TypeScriptCompile Include="src\routes\control\group\index.ts" />
+    <TypeScriptCompile Include="src\routes\control\light\index.ts" />
+    <TypeScriptCompile Include="src\routes\db\index.ts" />
+    <TypeScriptCompile Include="src\routes\db\groups\groups.ts" />
+    <TypeScriptCompile Include="src\routes\db\groups\id\groupID.ts" />
+    <TypeScriptCompile Include="src\routes\db\lights\id\lightID.ts" />
+    <TypeScriptCompile Include="src\routes\db\lights\lights.ts" />
+    <TypeScriptCompile Include="src\routes\db\schedulers\id.ts" />
+    <TypeScriptCompile Include="src\routes\db\schedulers\index.ts" />
+    <TypeScriptCompile Include="src\routes\index.ts" />
+    <TypeScriptCompile Include="src\routes\static\static.ts" />
+    <TypeScriptCompile Include="src\serial\serial.ts" />
     <TypeScriptCompile Include="Scripts\typings\express\express.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\google-maps\google.maps.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\mongodb\mongodb.d.ts" />
@@ -62,7 +62,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="lib\mongo\server\" />
+    <Folder Include="src\mongo\server\" />
     <Folder Include="test\mongo\main\" />
   </ItemGroup>
   <PropertyGroup>

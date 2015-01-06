@@ -1,4 +1,4 @@
-﻿import config = require('../../config');
+﻿import config = require('../config');
 
 function addRoute(app) {
     require('./db/index')(app);      //db actions

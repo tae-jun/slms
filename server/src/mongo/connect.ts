@@ -1,5 +1,5 @@
 ﻿import mongodb = require('mongodb');
-import config = require('../../config');
+import config = require('../config');
 var MongoClient = mongodb.MongoClient;
 
 function connect(dbName: string, callback: (db: mongodb.Db) => void) {
