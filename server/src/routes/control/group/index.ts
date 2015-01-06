@@ -17,14 +17,16 @@ function addNamespace(app: express.Application) {
                         var task = (callback) => {
                             serial.setLight(values.rgb, group.did, light.did, () => {
                                 groups.update(values._id, { rgb: values.rgb });
-                                callback(null, null);
+                                setTimeout(() => {
+                                    callback(null, null);
+                                }, 100);
                             });
                         };
 
                         tasks.push(task);
                     });
 
-                    async.parallel(tasks, (err, results) => {
+                    async.series(tasks, (err, results) => {
                         res.json({ rgb: values.rgb });
                     });
                 });
