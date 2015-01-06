@@ -25,6 +25,7 @@
     <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="scripts\typings\morgan\morgan.d.ts" />
     <TypeScriptCompile Include="src\app.ts" />
     <TypeScriptCompile Include="src\config.ts" />
     <TypeScriptCompile Include="src\mongo\connect.ts" />
@@ -45,8 +46,7 @@
     <TypeScriptCompile Include="src\routes\index.ts" />
     <TypeScriptCompile Include="src\routes\static\static.ts" />
     <TypeScriptCompile Include="src\serial\serial.ts" />
-    <TypeScriptCompile Include="scripts\typings\express\express.d.ts" />
-    <TypeScriptCompile Include="scripts\typings\google-maps\google.maps.d.ts" />
+    <TypeScriptCompile Include="scripts\typings\express-\express.d.ts" />
     <TypeScriptCompile Include="scripts\typings\mongodb\mongodb.d.ts" />
     <None Include="test\mongo\groups.spec.ts.legacy" />
     <None Include="test\mongo\lights.spec.ts.legacy" />
