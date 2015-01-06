@@ -1,6 +1,7 @@
 ﻿import express = require('express');
 import serial = require('../../../serial/serial');
 import groups = require('../../../mongo/main/groups');
+import lights = require('../../../mongo/main/lights');
 
 function addNamespace(app: express.Application) {
     app.namespace('/group', () => {
@@ -9,11 +10,19 @@ function addNamespace(app: express.Application) {
             values = req.body;
 
             groups.findByID(values._id, (group) => {
-                var deviceId = group.did;       // device id
-
-                serial.setLight(values.rgb, deviceId, () => {
-                    groups.update(values._id, { rgb: values.rgb });
-                    res.json({ rgb: values.rgb });
+                lights.findByGID(group._id, (lights) => {
+                    lights.forEach((light) => {
+                        /**
+                         * 
+                         * 
+                         * 
+                         * res.json을 여러번 호출함
+                         */
+                        serial.setLight(values.rgb, group.did, light.did, () => {
+                            groups.update(values._id, { rgb: values.rgb });
+                            res.json({ rgb: values.rgb });
+                        });
+                    });
                 });
             });
         });

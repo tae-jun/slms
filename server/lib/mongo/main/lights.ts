@@ -35,6 +35,13 @@ export function findByID(_id: string, callback: (light: Light) => void) {
     });
 }
 
+export function findByGID(gid: string, callback: (lights: Light[]) => void) {
+    lights.find({ gid: new ObjectId(gid) }).toArray((err, results) => {
+        if (err) return console.log(err);
+        callback(results);
+    });
+}
+
 export function create(light: Object, callback) {
     lights.insert(light, { w: 1 }, (err, result) => {
         if (err) return console.dir(err);
@@ -50,10 +57,6 @@ export function update(_id: string, doc: any, callback?: (affectedDoc: any) => v
         if (callback)
             callback(result);
     });
-}
-
-export function updateGid() {
-
 }
 
 export function remove(_id: string, callback: (result: number) => void) {

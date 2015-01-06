@@ -56,8 +56,7 @@ export function setLight(rgb: number[], groupDeviceId: number, lightDeviceId: nu
 
     startTime = new Date();
 
-    //var buff = [35, 36, r, g, b, 38];
-    var buff = [2, groupDeviceId, lightDeviceId, 0x10, r, g, b, 'T', 3];
+    var buff = [2, groupDeviceId, lightDeviceId, 0x10, r, g, b, 84, 3];
 
     serials.forEach((serial) => {
         console.log('host: ' + buff);
@@ -65,5 +64,6 @@ export function setLight(rgb: number[], groupDeviceId: number, lightDeviceId: nu
     });
 
     if (callback)
-        callbacks.push(callback);
+        callback()
+        //callbacks.push(callback);
 }
