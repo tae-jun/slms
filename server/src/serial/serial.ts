@@ -14,7 +14,10 @@ var callbacks: Function[] = [];
 
 var onData = (data) => {
     endTime = new Date;
-    console.log('device: ' + data + ' - ' + (endTime.getTime() - startTime.getTime()) + 'ms');
+    if (startTime == undefined)
+        console.log('device: ' + data + ' - ' + (endTime.getTime() - startTime.getTime()) + 'ms');
+    else
+        console.log('device: ' + data);
 
     while (callbacks.length)
         callbacks.pop()();
