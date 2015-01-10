@@ -9,7 +9,7 @@ module.exports = function (grunt) {
     // Default task.
     grunt.registerTask('default', ['build']);
     grunt.registerTask('build', ['ts']);
-    grunt.registerTask('server', ['build', 'express:dev', 'watch']);
+    grunt.registerTask('server', ['express:dev', 'watch']);
 
     // Project configuration.
     grunt.initConfig({
